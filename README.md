@@ -5,7 +5,8 @@ Is a set of script useful in deep learning and AI purposes.
 ## image_download.py
 Download any number of images from Google image search.
 
-Usage:  `python image_download.py <query> <number of images>`
+Usage:  `python image_download.py query num_images
+
 Example:`python image_download.py 'dog' 200`
 
 
