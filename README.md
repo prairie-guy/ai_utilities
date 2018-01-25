@@ -17,7 +17,7 @@ Images are filtered in place, i.e., non-IMG files are deleted.
 Usage:  `filter-img image_directory`
 Example:`filter-image pictures`
 
-# make-train-valid.sh
+## make-train-valid.sh
 Set up `valid` and `train` directories for use in deep learning models.
 
 Usage:   make-train-valid.sh dir_containing_labels number_of_valids
