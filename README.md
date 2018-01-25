@@ -1,8 +1,8 @@
-#ai_utilities
+# ai_utilities
 
 Is a set of script useful in deep learning and AI purposes.
 
-##image_download.py
+## image_download.py
 Download any number of images from Google image search.
 
 Usage:  `python image_download.py <query> <number of images>`
