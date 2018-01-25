@@ -1,14 +1,16 @@
 # ai_utilities
 
-Is a set of script useful in deep learning and AI purposes.
+A set of script useful in deep learning and AI purposes, originally for use with `fast.ai` lectures and libraries.
 
 ## image_download.py
 Download any number of images from Google image search.
 
 Usage:
-`python image_download.py query num_images`
+`python image-download.py query num_images`
 
-Example:`python image_download.py 'dog' 200`
+Example:`python image-download.py 'dog' 200`
+
+Notw: geckodriver needs to be installed in PATH, or else image-download.py can be configured to load it from a specified location.
 
 ## filter-img.sh
 Use 'file' to determine the type of picture then filter (keep) only pictures of a specified type.
