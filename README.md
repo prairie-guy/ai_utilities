@@ -3,14 +3,17 @@
 A set of scripts useful in deep learning and AI purposes, originally for use with `fast.ai` lectures and libraries.
 
 ## image_download.py
-Download any number of images from Google image search.
+Download any number of images from Google image search. image_download.py is useful in several respects:
+- Because is utilizes selenium, it is not limitied by google api limit on the number of downloaded images.
+- It can operate in `headless` mode, which means it can be used on a server without access to a gui browser.
+- In addtionto Firefox, the script can be modified to use other browsers such as Chrome.
 
 Usage:
 `python image-download.py query num_images`
 
 Example:`python image-download.py 'dog' 200`
 
-Notw: geckodriver needs to be installed in PATH, or else image-download.py can be configured to load it from a specified location.
+Note: geckodriver is used for Firefox and needs to be installed in PATH, or else modify the script to use a sepcified location.
 
 ## filter-img.sh
 Use 'file' to determine the type of picture then filter (keep) only pictures of a specified type.
