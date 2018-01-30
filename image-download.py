@@ -1,3 +1,5 @@
+#!/home/cdaniels/anaconda3/envs/fastai/bin/python
+
 import os, sys, time
 import json, requests, shutil
 from selenium import webdriver
@@ -14,6 +16,15 @@ download_path = "dataset/"
 # Usage: python image_download.py 'searchtext' 'num_requested'
 
 def main():
+        ### Local:
+        # driver = webdriver.Firefox()
+
+        ## HEADLESS: set to work with headless Firefox, assumes  geckodriver is in the searchpath or is specified in executable_path, below
+	options = Options()
+	options.add_argument('-headless')
+	driver = Firefox(executable_path='geckodriver', firefox_options=options)
+        ##
+
 	searchtext = sys.argv[1]
 	num_requested = int(sys.argv[2])
 	number_of_scrolls = num_requested / 400 + 1
@@ -24,17 +35,6 @@ def main():
 
 	url = f'https://www.google.co.in/search?q={searchtext}&source=lnms&tbm=isch'
 
-        # Need to choose for headless or local
-
-        # Local:
-        # driver = webdriver.Firefox()
-
-        # Optionally, need to set to work with headless Firefox
-        # geckodriver is in the searchpath, i.e., ~/bin
-	options = Options()
-	options.add_argument('-headless')
-	driver = Firefox(executable_path='geckodriver', firefox_options=options)
-        #
 
 	driver.get(url)
 
