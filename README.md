@@ -2,6 +2,16 @@
 
 A set of scripts useful in deep learning and AI purposes, originally for use with `fast.ai` lectures and libraries.
 
+## make_train_valid.py
+Set up `train` and `valid` directories for use in deep learning models.
+
+Usage:   `make_train_valid.py dir_containing_labels`
+- dir_containing_labels contains sub-directories lable1, label2...,  each containing files of the corresponding label.
+- number_of_valids is the number of validations to use for each label
+- Default settings for `train` and `valid` are `.80` and `.20`, respectively. These can be modified in the script.
+
+Example: `make_train_valid.py catsdogs`
+
 ## image_download.py
 Download any number of images from Google image search. image_download.py is useful in several respects:
 - Because is utilizes selenium, it is not limited by google api limit on the number of downloaded images.
@@ -22,14 +32,5 @@ Images are filtered in place, i.e., non-JPEG files are deleted. (This can be mod
 Usage:  `filter_img image_directory`
 Example:`filter_image pictures`
 
-## make_train_valid.py
-Set up `train` and `valid` directories for use in deep learning models.
-
-Usage:   `make_train_valid.py dir_containing_labels`
-- dir_containing_labels contains sub-directories lable1, label2...,  each containing files of the corresponding label.
-- number_of_valids is the number of validations to use for each label
-- Default settings for `train` and `valid` are `.80` and `.20`, respectively. These can be modified in the script.
-
-Example: `make_train_valid.py catsdogs`
 
 These should be used for educational purposes only. Copyright is owned by the respective websites.
