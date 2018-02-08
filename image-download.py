@@ -1,4 +1,10 @@
-#!/home/cdaniels/anaconda3/envs/fastai/bin/python
+#!/usr/bin/env python
+
+###
+# C.Bryan Daniels
+# 2/8/2018
+# Very minor tweaks to:  github.com/atif93/google_image_downloader
+###
 
 import os, sys, time
 import json, requests, shutil
