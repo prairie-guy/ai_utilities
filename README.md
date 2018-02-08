@@ -8,7 +8,7 @@ Set up `train` and `valid` directories for use in deep learning models.
 Usage:   `make_train_valid.py dir_containing_labels`
 - dir_containing_labels contains sub-directories lable1, label2...,  each containing files of the corresponding label.
 - Default settings for `train` and `valid` are `.80` and `.20`, respectively. These can be modified in the script.
-- Script can be easily modified to add `test` as well.
+- Script can be easily modified to add `test` as well. Edit script as follows: `runs  = {'train':.75, 'valid':.2, 'test':.05}` 
 
 Example: `make_train_valid.py catsdogs`
 
