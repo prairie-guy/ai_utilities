@@ -11,6 +11,8 @@ runs  = {'train':.8, 'valid':.2}
 # runs  = {'train':.75, 'valid':.2, 'test':.05} 
 ###
 
+assert sum(runs.values()) == 1
+
 import os, sys, shutil, random
 from pathlib import Path
 
