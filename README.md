@@ -22,7 +22,13 @@ Usage:   `image_download.py query num_images`
 
 Example: `image_download.py 'dog' 200`
 
-Note: geckodriver is used for Firefox and needs to be installed in PATH, or else modify the script to use a specified location.
+Notes:
+1) Requires `Python >= 3`
+2) Install selenium: `conda install selenium`  or  `pip install selenium`
+3) Place an browser driver appropriate for your browser and operating system in PATH.
+4) For example, if using linux and Firefox:
+- `tar xfvz geckodriver-v0.19.1-linux64.tar.gz` 
+- `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
 
 ## filter_img.sh
 Use `file` to determine the type of picture then filter (keep) only pictures of a specified type.
