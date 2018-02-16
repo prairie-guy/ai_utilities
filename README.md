@@ -54,8 +54,27 @@ optional arguments:
   --test TEST    files for training, default=.0
 ```
 
-Example: `make_train_valid.py catsdogs --train .75 --valid .20 --test .05`
-
+For example, given a directory:
+```
+catsdogs/
+         ..cat/[*.jpg]
+         ..dog/[*.jpg]
+``` 
+```
+make_train_valid.py catsdogs --train .75 --valid .25
+```
+Creates the following directory structure:
+```
+catsdogs/
+         ..cat/[*.jpg]
+         ..dog/[*.jpg]
+         ..train/
+                 ..cat/[*.jpg]
+                 ..dog/[*.jpg]
+         ..valid/
+                 ..cat/[*.jpg]
+                 ..dog/[*.jpg]
+```
 
 ## filter_img.sh
 Use `file` to determine the type of picture then filter (keep) only pictures of a specified type.
