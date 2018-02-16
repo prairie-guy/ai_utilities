@@ -62,7 +62,7 @@ Use `file` to determine the type of picture then filter (keep) only pictures of 
 
 Images are filtered in place, i.e., non-JPEG files are deleted. (This can be modified within the script.)
 ```
-Usage:  `filter_img image_directory`
+Usage: filter_img image_directory
 ```
 
 Example:`filter_image dogs/`
