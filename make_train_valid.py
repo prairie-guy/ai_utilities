@@ -6,31 +6,45 @@
 # 2/7/2018
 ###
 
-### Change if needed:
-runs  = {'train':.8, 'valid':.2}
-# runs  = {'train':.75, 'valid':.2, 'test':.05} 
-###
+"""
+usage: make_train_valid.py [-h] [--train TRAIN] [--valid VALID] [--test TEST]
+                           labels_dir
 
-assert sum(runs.values()) == 1
+Make a train-valid directory and randomly copy files from labels_dir to sub-
+directories
 
-import os, sys, shutil, random
+positional arguments:
+  labels_dir     Contains at least two directories of labels, each containing
+                 files of that label
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --train TRAIN  files for training, default=.8
+  --valid VALID  files for validation, default=.2
+  --test TEST    files for training, default=.0
+"""
+
+
+
+import os, sys, shutil, random, argparse
 from pathlib import Path
 
-args = sys.argv
-script_name = args[0]
-if len(args) != 2  or not Path(args[1]).is_dir():
-    print(f"usage: {script_name} labels_dir")
-    sys.exit()
-labels_path = Path(args[1])
+parser = argparse.ArgumentParser(description = "Make a train-valid  directory  and randomly copy files from labels_dir to sub-directories")
+parser.add_argument("labels_dir", help= "Contains at least two directories of labels, each containing files of that label")
+parser.add_argument("--train", type=float, default=.8, help="files for training, default=.8")
+parser.add_argument("--valid", type=float, default=.2, help="files for validation, default=.2")
+parser.add_argument("--test", type=float, default=.0,  help="files for training,  default=.0")
+args = parser.parse_args()
+
+assert sum([args.train, args.valid, args.test]) == 1
+assert Path(args.labels_dir).is_dir()
+runs = {'train':args.train, 'valid':args.valid, 'test':args.test}
+labels_path = Path(args.labels_dir)
 
 for run in runs.keys():
     shutil.rmtree((labels_path / run), ignore_errors=True)
-        
-labels = [d.name for d in labels_path.iterdir() if d.is_dir()]
-if len(labels) < 2:
-    print(f"usage: {script_name} labels_dir, containing at 2 least directories each named as a label and containing files of that label")
-    sys.exit()
 
+labels = [d.name for d in labels_path.iterdir() if d.is_dir()]
 for label in labels:
     files = list((labels_path / label).iterdir())
     num_files = len(files)
@@ -40,7 +54,6 @@ for label in labels:
         random.shuffle(files)
         for f in files[:take]:
             shutil.copy(f, (labels_path / run / label / f.name))
-            #os.symlink(f, (labels_path / run / label / f.name))
             print(f, (labels_path / run / label / f.name))
         files = files[take:]
         

@@ -7,8 +7,8 @@
 ###
 
 """
-usage: image_download.py [-h] [--gui] [--engine {google,bing}]
-                         searchtext num_images
+Select, search, download and save a specified number images using a choice of
+search engines
 
 positional arguments:
   searchtext            Search Image
@@ -28,7 +28,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser(description = "Select, search, download and save a specified number images using a choice of search engines")
 parser.add_argument("searchtext", help="Search Image")
 parser.add_argument("num_images", help="Number of Images", type=int)
 parser.add_argument("--gui", "-g", help="Use Browser in the GUI", action='store_true')
@@ -42,7 +42,9 @@ gui = args.gui
 engine = args.engine
 
 ############################################################################################
-# Customized for search engines
+# Customized for specific search engine. Additional search engines can be added, provided
+# each returns a list of urls.
+#############################################################################################
 def get_urls_bing(driver, searchtext):
     request = f'https://www.bing.com/images/search?q={searchtext}'
     driver.get(request)
@@ -95,7 +97,8 @@ def get_urls_google(driver, searchtext):
     return [make_url(xpath) for xpath in xpaths]
 
 ############################################################################################
-
+# Boilerplate. No need to modify with addition of additinal search engines.
+#############################################################################################
 def make_driver():
     if gui:
         driver = webdriver.Firefox()
@@ -137,9 +140,10 @@ def get_and_save_images(urls, label):
     print(f'Downloaded {num_downloaded}/{num_images}')
 
 
-
-## __Main Script__
-
+############################################################################################
+# __Main Script__
+# Minor modifications required for additonal search engines.
+############################################################################################
 driver = make_driver()
 print(f'Using: {engine}')
 if engine == 'google':

@@ -3,12 +3,23 @@
 A set of scripts useful in deep learning and AI purposes, originally for use with `fast.ai` lectures and libraries.
 
 ## make_train_valid.py
-Set up `train` and `valid` directories for use in deep learning models.
+```
+usage: make_train_valid.py [-h] [--train TRAIN] [--valid VALID] [--test TEST]
+                           labels_dir
 
-Usage:   `make_train_valid.py dir_containing_labels`
-- dir_containing_labels contains sub-directories lable1, label2...,  each containing files of the corresponding label.
-- Default settings for `train` and `valid` are `.80` and `.20`, respectively. These can be modified in the script.
-- In addition to `train` and `valid`, `test` can be added. Edit script: `runs  = {'train':.75, 'valid':.2, 'test':.05}`
+Make a train-valid directory and randomly copy files from labels_dir to sub-
+directories
+
+positional arguments:
+  labels_dir     Contains at least two directories of labels, each containing
+                 files of that label
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --train TRAIN  files for training, default=.8
+  --valid VALID  files for validation, default=.2
+  --test TEST    files for training, default=.0
+```
 
 Example: `make_train_valid.py catsdogs`
 
@@ -18,6 +29,21 @@ Download any number of images from Google image search. image_download.py is use
 - It can operate in `headless` mode, which means it can be used on a server without access to a gui browser.
 - The default browser is Firefox. The script can be modified to use other browsers such as Chrome.
 
+```
+Select, search, download and save a specified number images using a choice of
+search engines
+
+positional arguments:
+  searchtext            Search Image
+  num_images            Number of Images
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --gui, -g             Use Browser in the GUI
+  --engine {google,bing}, -e {google,bing}
+                        Search Engine, default=google
+```
+
 Usage:   `image_download.py query num_images`
 
 Example: `image_download.py 'dog' 200`
@@ -25,6 +51,7 @@ Example: `image_download.py 'dog' 200`
 Notes:
 1) Requires `Python >= 3`
 2) Install selenium: `conda install selenium`  or  `pip install selenium`
+3) Install other dependencies from conda
 3) Install an appropriate browser and browser driver (appropriate for your browser and operating system) in PATH.
 4) For example, if using Ubuntu and Firefox:
 - `tar xfvz geckodriver-v0.19.1-linux64.tar.gz` 
