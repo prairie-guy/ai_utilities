@@ -24,7 +24,7 @@ optional arguments:
 Example: `make_train_valid.py catsdogs --train .75 --valid .20 --test .05`
 
 ## image_download.py
-Download images (typically limited to 1000) from a specified serach engines, currently Google and Bing.
+Download images (typically limited to 1000) from a specified serach engine, currently Google or Bing.
 image_download.py is useful in several respects:
 - Because is utilizes selenium, it is not limited by the search engine api and generally allows for more downloaded images.
 - It can operate in `headless` mode, which means it can be used on a server without access to a gui browser.
