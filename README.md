@@ -21,11 +21,12 @@ optional arguments:
   --test TEST    files for training, default=.0
 ```
 
-Example: `make_train_valid.py catsdogs`
+Example: `make_train_valid.py catsdogs --train .75 --valid .20 --test .05`
 
 ## image_download.py
-Download any number of images from Google image search. image_download.py is useful in several respects:
-- Because is utilizes selenium, it is not limited by google api limit on the number of downloaded images.
+Download images (typically limited to 1000) from a specified serach engines, currently Google and Bing.
+image_download.py is useful in several respects:
+- Because is utilizes selenium, it is not limited by the search engine api and generally allows for more downloaded images.
 - It can operate in `headless` mode, which means it can be used on a server without access to a gui browser.
 - The default browser is Firefox. The script can be modified to use other browsers such as Chrome.
 
@@ -44,9 +45,7 @@ optional arguments:
                         Search Engine, default=google
 ```
 
-Usage:   `image_download.py query num_images`
-
-Example: `image_download.py 'dog' 200`
+Example: `image_download.py 'dog' 200 --engine 'bing' --gui` 
 
 Notes:
 1) Requires `Python >= 3`
