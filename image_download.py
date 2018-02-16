@@ -6,9 +6,22 @@
 # Adapted from github.com/atif93/google_image_downloader
 ###
 
-# Usage: python image_download.py 'searchtext' 'num_images' [--gui]
+"""
+usage: image_download.py [-h] [--gui] [--engine {google,bing}]
+                         searchtext num_images
 
-import sys, time, json, requests, shutil, argparse
+positional arguments:
+  searchtext            Search Image
+  num_images            Number of Images
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --gui, -g             Use Browser in the GUI
+  --engine {google,bing}, -e {google,bing}
+                        Search Engine, default=google
+"""
+
+import sys, time, json, requests, shutil, argparse, re
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -18,8 +31,8 @@ from selenium.webdriver.firefox.options import Options
 parser = argparse.ArgumentParser()
 parser.add_argument("searchtext", help="Search Image")
 parser.add_argument("num_images", help="Number of Images", type=int)
-parser.add_argument("--gui", help="Use Browser in the GUI", action='store_true')
-parser.add_argument("--engine", help="Search Engine, default=google", choices=['google', 'bing'], default='google')
+parser.add_argument("--gui", "-g", help="Use Browser in the GUI", action='store_true')
+parser.add_argument("--engine", "-e", help="Search Engine, default=google", choices=['google', 'bing'], default='google')
 args = parser.parse_args()
 
 searchtext = args.searchtext
@@ -29,24 +42,31 @@ gui = args.gui
 engine = args.engine
 
 ############################################################################################
-# Customized by search engine
+# Customized for search engines
 def get_urls_bing(driver, searchtext):
     request = f'https://www.bing.com/images/search?q={searchtext}'
     driver.get(request)
     # Find Button: "See More Images"
-    for i in range(15):
+    print("Loading page...")
+    for i in range(20):
         driver.execute_script(f'window.scrollBy(0, 1000)')
-        time.sleep(.4)
+        time.sleep(.5)
         try:
             driver.find_element_by_xpath("//a[@class='btn_seemore']").click()
             print("Found: Button->", i)
             break
         except:
             None
-    # Scroll through end of the document
-    for i in range(40):
-        driver.execute_script("window.scrollBy(0, 1000)")
-        time.sleep(.4)
+    # Scroll through end of the page
+    nexturl = driver.find_element_by_xpath("//div[@id='mmComponent_images_1']").get_attribute('data-nexturl')
+    while nexturl:
+        count = int(re.search('first=(\d*)', nexturl).groups()[0])
+        print(f"Images: {count}")
+        if count > num_images: break
+        driver.execute_script("window.scrollBy(0, 10000)")
+        time.sleep(.5)
+        nexturl = driver.find_element_by_xpath("//div[@id='mmComponent_images_1']").get_attribute('data-nexturl')
+    print("Page Loaded")
     # Get urls of images
     def make_url(xpath): return json.loads(xpath.get_attribute('m'))['murl']
     xpaths = driver.find_elements_by_xpath('//a[@class="iusc"]')
@@ -57,6 +77,7 @@ def get_urls_google(driver, searchtext):
     request = f'https://www.google.co.in/search?q={searchtext}&source=lnms&tbm=isch'
     driver.get(request)
     # Find Button: "See More Images"
+    print("Loading page...")
     for i in range(5):
         for j in range(10):
             driver.execute_script("window.scrollBy(0, 10000)")
@@ -64,15 +85,17 @@ def get_urls_google(driver, searchtext):
         time.sleep(0.5)
         try:
             driver.find_element_by_xpath("//input[@value='Show more results']").click()
-            print("Found: See More Images->",i)
+            print("Found Button->",i)
         except Exception as e:
             break
-    # Get urls
+    print("Page Loaded")
+    # Get urls of images
     def make_url(xpath): return json.loads(xpath.get_attribute('innerHTML'))['ou']
     xpaths = driver.find_elements_by_xpath('//div[contains(@class,"rg_meta")]')
     return [make_url(xpath) for xpath in xpaths]
 
 ############################################################################################
+
 def make_driver():
     if gui:
         driver = webdriver.Firefox()
@@ -113,7 +136,10 @@ def get_and_save_images(urls, label):
             break
     print(f'Downloaded {num_downloaded}/{num_images}')
 
-## __Main Script__    
+
+
+## __Main Script__
+
 driver = make_driver()
 print(f'Using: {engine}')
 if engine == 'google':
