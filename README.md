@@ -10,6 +10,9 @@ image_download.py is useful in several respects:
 - The default browser is Firefox. The script can be modified to use other browsers such as Chrome.
 
 ```
+usage: image_download.py [-h] [--gui] [--engine {google,bing}]
+                         searchtext num_images
+
 Select, search, download and save a specified number images using a choice of
 search engines
 
