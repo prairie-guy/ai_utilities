@@ -45,9 +45,12 @@ import inspect
 # print methods of an object
 def methods_of(obj,lr=False):
     for attr in dir(obj):
-        if not attr.startswith("_") and callable(getattr(obj,str(attr),None)):
-            print(f"{attr}{str(inspect.signature(getattr(obj,str(attr), None)))}:")
-            if lr==True: print()
+        if attr.startswith("_"): continue
+        try:
+            if callable(getattr(obj,str(attr),None)):
+                print(f"{attr}{str(inspect.signature(getattr(obj,str(attr), None)))}:")
+                if lr==True: print()
+        except: pass
 
 # print attributes of an object
 def attributes_of(obj, *exclude):
