@@ -15,7 +15,6 @@ methods_of(obj,lr=False):      -> prints obj methods
 usage: import ai_utils
 
 > data = ImageClassifierData.from_paths(PATH, tfms=tfms_from_model(arch, sz))
-
 > attributes_of(data.trn_dl.dataset,'fnames')
 c: 2
 fnames: ...
@@ -36,7 +35,6 @@ get_x(i):
 get_y(i):
 resize_imgs(targ, new_path):
 transform(im, y=None):
-
 """
 
 
