@@ -98,3 +98,36 @@ filter_img.py cars/bmw
 filter_img.py cars/cadillac
 make_train_valid.py cars --train .75 --valid .25
 ```
+
+## ai_utils.py
+
+```
+ai_utils.py
+contains:
+atttributes_of(obj, *exclude): -> prints obj attributes
+methods_of(obj,lr=False):      -> prints obj methods
+
+usage: import ai_utils
+
+> data = ImageClassifierData.from_paths(PATH, tfms=tfms_from_model(arch, sz))
+> attributes_of(data.trn_dl.dataset,'fnames')
+c: 2
+fnames: ...
+is_multi: False
+is_reg: False
+n: 23000
+path: data/dogscats/
+sz: 224
+y: [0 0 0 ... 1 1 1]
+
+> methods_of(data.trn_dl.dataset)
+denorm(arr):
+get(tfm, x, y):
+get_c():
+get_n():
+get_sz():
+get_x(i):
+get_y(i):
+resize_imgs(targ, new_path):
+transform(im, y=None):
+```
