@@ -84,18 +84,18 @@ Use `file` to determine the type of picture then filter (keep) only pictures of 
 
 Images are filtered in place, i.e., non-JPEG files are deleted. (This can be modified within the script.)
 ```
-Usage: filter_img image_directory
+Usage: filter_img.sh image_directory
 ```
 
-Example:`filter_image dogs/`
+Example:`filter_image.sh dogs/`
 
 ## Sample workflow
 ```
 image_download.py 'bmw' 500 --engine 'bing' --gui
 image_download.py 'cadillac' 500 --engine 'google'
 mv dataset cars
-filter_img.py cars/bmw
-filter_img.py cars/cadillac
+filter_img.sh cars/bmw
+filter_img.sh cars/cadillac
 make_train_valid.py cars --train .75 --valid .25
 ```
 
