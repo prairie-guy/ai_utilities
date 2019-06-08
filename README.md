@@ -7,7 +7,7 @@ The most common use case is downloading images for training vision models.
 Command-line download of images (typically limited to 1000) from a specified search engine.
 
 `image_download.py` is useful in several respects:
-- Operates in `headless` mode. Can be used without access to a gui browser.
+- Operates in `headless-mode`. Can be used without access to a gui browser.
 - Operates from the `command-line`.
 - `Scriptable`. (Easily write a bash script to download 10 classes of images. Then run un-attended.)
 - Downloads images directly to GPU server. (No need to transfer images from local computer to cloud-server.)
