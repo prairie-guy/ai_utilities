@@ -35,7 +35,7 @@ Installation:
 - `conda install selenium`
 - `cd ai_utilities`
 - Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (For example: Ubuntu)
-   `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
+- `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
 - `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
 - `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
 
