@@ -1,7 +1,7 @@
 # ai_utilities
 
 A set of scripts useful with `fast.ai` lectures and libraries.
-The current use case is for downloading images for training vision models.
+The most common use case is downloading images for training vision models.
 
 ## image_download.py
 Download images (typically limited to 1000) from a specified serach engine, currently Google or Bing.
@@ -54,7 +54,7 @@ Usage: filter_img.sh image_directory
 
 Example:`filter_image.sh dogs/`
 
-## Sample workflow
+## Sample work flow: Download images of two classes of cars and remove non-jpeg images
 ```
 image_download.py 'bmw' 500
 image_download.py 'cadillac' 500
