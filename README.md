@@ -4,11 +4,11 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
 
 ## Installation:
-- `git clone `
 - `Python >= 3`
+- `git clone https://github.com/prairie-guy/ai_utilities.git `
 - `conda install selenium`
 - `cd ai_utilities`
-- Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (For example: Ubuntu)
+- Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (i.e., Ubuntu)
 - `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
 - `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
 - `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
