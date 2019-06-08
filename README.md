@@ -4,12 +4,15 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
 
 ## image_download.py
-Download images (typically limited to 1000) from a specified serach engine, currently Google or Bing.
+Command line download of images (typically limited to 1000) from specified search engine.
 image_download.py is useful in several respects:
-- Because is utilizes selenium, it is not limited by the search engine api and generally allows for more downloaded images.
-- It can operate in `headless` mode, which means it can be used on a server without access to a gui browser.
-- The default browser is Firefox. The script can be modified to use other browsers such as Chrome.
-
+- Operates in `headless` mode. Can be used without access to a gui browser.
+- Operates from the command line.
+- Scriptable.
+- Downloads images directly to GPU server. No need to transfer images from local computer to cloud-server.
+- Specify search enginge, currently 'google' or 'bing'
+- Default browser is Firefox. The script can be modified to use other browsers such as Chrome.
+- Optionally, operate in GUI mode.
 ```
 usage: image_download.py [-h] [--gui] [--engine {google,bing}]
                          searchtext num_images
