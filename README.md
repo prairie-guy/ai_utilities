@@ -52,8 +52,8 @@ Examples:
 
 
 ### filter_img.sh
-Use `file` to determine the type of picture then filter (keep) only pictures of a specified type.
-Different image formats may break training algorithims.
+Filter (keep) only pictures of a specified type. The default is JPEG
+Differences in image formats will break training algorithims.
 
 Images are filtered in place, i.e., non-JPEG files are deleted. (This can be modified within the script.)
 ```
