@@ -108,7 +108,7 @@ catsdogs/
 
 ## Sample work flows: 
 
-### Bash script to download images of bmws and cadillacs, remove non-jpeg images and make imagenet-type file dataset
+#### Bash script to download images of two classes of cars, remove non-jpeg images and make imagenet-type file structure.
 ```
 image_download.py 'bmw' 500
 image_download.py 'cadillac' 500
