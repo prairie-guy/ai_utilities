@@ -8,7 +8,8 @@ The most common use case is downloading images for training vision models.
 - `git clone https://github.com/prairie-guy/ai_utilities.git `
 - `conda install selenium`
 - `cd ai_utilities`
-- Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (i.e., Ubuntu)
+- Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` 
+- (For example using `linux64`; Adjust to your operating sytem accordingly)
 - `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
 - `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
 - `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
