@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Use 'file' to determine the type of picture then filter (keep) only pictures of a specified type.
+# Filter (keep) only pictures of a specified type. The default is JPEG
 # Images are filtered in place, i.e., non-IMG files are deleted.
 IMG=JPEG
 
