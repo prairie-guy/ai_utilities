@@ -1,6 +1,7 @@
 # ai_utilities
 
-A set of scripts useful in deep learning and AI purposes, originally for use with `fast.ai` lectures and libraries.
+A set of scripts useful with `fast.ai` lectures and libraries.
+The current use case is for downloading images for training vision models.
 
 ## image_download.py
 Download images (typically limited to 1000) from a specified serach engine, currently Google or Bing.
@@ -27,16 +28,17 @@ optional arguments:
                         Search Engine, default=google
 ```
 
-Example: `image_download.py 'dog' 200 --engine 'bing' --gui` 
+Example: image_download.py dog 200 --engine bing --gui 
 
-Notes:
-1) Requires `Python >= 3`
-2) Install selenium: `conda install selenium`  or  `pip install selenium`
-3) Install other dependencies from conda
-3) Install an appropriate browser and browser driver (appropriate for your browser and operating system) in PATH.
-4) For example, if using Ubuntu and Firefox:
-- `tar xfvz geckodriver-v0.19.1-linux64.tar.gz` 
-- `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
+Installation:
+0. `Python >= 3`
+2. `conda install selenium`
+3. `cd ai_utilities`
+4. Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (For example: Ubuntu)
+   `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
+5. `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
+6. `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
+
 
 ## make_train_valid.py
 ```
