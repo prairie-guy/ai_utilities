@@ -24,7 +24,7 @@ Command-line download of images (typically limited to 1000) from a specified sea
 - Operates from the `command-line`.
 - `Scriptable`. (Easily write a bash script to download 10 classes of images.)
 - Downloads images directly to GPU server. (No need to transfer images from local computer to gpu-server.)
-- Specify search enginge. (Currently 'google' or 'bing')
+- Specify search enginge. (Currently `google` or `bing`)
 - Default browser is Firefox. (The script can be modified to use other browsers such as Chrome.)
 - Optionally, operates in `GUI-mode`. (Good for debugging.)
 ```
@@ -47,10 +47,10 @@ optional arguments:
 
 
 
-Usage:
-- image_download.py dog 200 (Download 200 dog images using default google engine)
-- image_download.py cat 500 --engine bing (Download using bing engine)
-- image_download.py dog 200  --gui (Download with browser showing in GUI)
+Example:
+- `image_download.py dog 200` (Download 200 dog images using default google engine)
+- `image_download.py cat 500 --engine bing` (Download using bing engine)
+- `image_download.py dog 200`  --gui (Download with browser showing in GUI)
 
 
 ### filter_img.sh
