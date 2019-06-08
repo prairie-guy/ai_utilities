@@ -3,7 +3,17 @@
 A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
 
-## image_download.py
+## Installation:
+- `Python >= 3`
+- `conda install selenium`
+- `cd ai_utilities`
+- Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (For example: Ubuntu)
+- `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
+- `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
+- `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
+
+
+### image_download.py
 Command-line download of images (typically limited to 1000) from a specified search engine.
 
 `image_download.py` is useful in several respects:
@@ -32,14 +42,7 @@ optional arguments:
                         Search Engine, default=google
 ```
 
-Installation:
-- `Python >= 3`
-- `conda install selenium`
-- `cd ai_utilities`
-- Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (For example: Ubuntu)
-- `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
-- `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
-- `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
+
 
 Usage:
 - image_download.py dog 200 (Download 200 dog images using default google engine)
