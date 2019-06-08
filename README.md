@@ -4,8 +4,9 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
 
 ## image_download.py
-Command line download of images (typically limited to 1000) from specified search engine.
-image_download.py is useful in several respects:
+Command line download of images (typically limited to 1000) from a specified search engine.
+
+`image_download.py` is useful in several respects:
 - Operates in `headless` mode. Can be used without access to a gui browser.
 - Operates from the command line.
 - Scriptable.
