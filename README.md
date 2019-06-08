@@ -42,9 +42,9 @@ Installation:
 - `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
 
 Usage:
-image_download.py dog 200 (Download 200 dog images using default google engine)
-image_download.py cat 500 --engine bing (Download using bing engine)
-image_download.py dog 200  --gui (Download with browser showing in GUI)
+- image_download.py dog 200 (Download 200 dog images using default google engine)
+- image_download.py cat 500 --engine bing (Download using bing engine)
+- image_download.py dog 200  --gui (Download with browser showing in GUI)
 
 
 ## filter_img.sh
