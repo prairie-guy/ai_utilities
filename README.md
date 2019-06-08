@@ -9,11 +9,11 @@ Command line download of images (typically limited to 1000) from a specified sea
 `image_download.py` is useful in several respects:
 - Operates in `headless` mode. Can be used without access to a gui browser.
 - Operates from the command line.
-- Scriptable.
+- Scriptable. (Easily write a bash script to download 10 classes of images. Then run un-attended.)
 - Downloads images directly to GPU server. No need to transfer images from local computer to cloud-server.
 - Specify search enginge, currently 'google' or 'bing'
-- Default browser is Firefox. The script can be modified to use other browsers such as Chrome.
-- Optionally, operate in GUI mode.
+- Default browser is Firefox. (The script can be modified to use other browsers such as Chrome.)
+- Optionally, operates in GUI mode. (Good for debugging.)
 ```
 usage: image_download.py [-h] [--gui] [--engine {google,bing}]
                          searchtext num_images
