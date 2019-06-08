@@ -31,13 +31,13 @@ optional arguments:
 Example: image_download.py dog 200 --engine bing --gui 
 
 Installation:
-0. `Python >= 3`
-2. `conda install selenium`
-3. `cd ai_utilities`
-4. Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (For example: Ubuntu)
+- `Python >= 3`
+- `conda install selenium`
+- `cd ai_utilities`
+- Download Geckodriver for your opearting system `https://github.com/mozilla/geckodriver/releases/` (For example: Ubuntu)
    `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
-5. `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
-6. `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
+- `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
+- `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
 
 
 ## make_train_valid.py
