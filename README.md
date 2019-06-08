@@ -45,9 +45,7 @@ optional arguments:
                         Search Engine, default=google
 ```
 
-
-
-Example:
+Examples:
 - `image_download.py dog 200` (Download 200 dog images using default google engine)
 - `image_download.py cat 500 --engine bing` (Download using bing engine)
 - `image_download.py dog 200`  --gui (Download with browser showing in GUI)
@@ -65,6 +63,7 @@ Usage: filter_img.sh image_directory
 Example:`filter_image.sh dogs/`
 
 ### make_train_valid.py
+From a directory containing sub-directories each with a different class of images, make an imagenet-type directory hierarchy.
 ```
 usage: make_train_valid.py [-h] [--train TRAIN] [--valid VALID] [--test TEST]
                            labels_dir
@@ -105,18 +104,21 @@ catsdogs/
                  ..dog/[*.jpg]
 ```
 
-## Sample work flow: Download images of two classes of cars and remove non-jpeg images
+## Sample work flows: 
+
+### Bash script to download images of bmws and cadillacs, remove non-jpeg images and make imagenet-type file dataset
 ```
 image_download.py 'bmw' 500
 image_download.py 'cadillac' 500
 mv dataset cars
 filter_img.sh cars/bmw
 filter_img.sh cars/cadillac
+make_train_valid.py cars
 ```
 
 
 
-## ai_utils.py
+## Misc ai_utils.py scripts
 
 ```
 ai_utils.py
