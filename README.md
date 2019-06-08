@@ -63,7 +63,9 @@ Usage: filter_img.sh image_directory
 Example:`filter_image.sh dogs/`
 
 ### make_train_valid.py
-From a directory containing sub-directories each with a different class of images, make an imagenet-type directory hierarchy.
+From a directory containing sub-directories each with a different class of images, make an imagenet-type directory structure.
+
+`make_train_valid.py` prepares a imagment-type directory structure usable by `ImageDataBunch.from_folder(dir,...)`
 ```
 usage: make_train_valid.py [-h] [--train TRAIN] [--valid VALID] [--test TEST]
                            labels_dir
