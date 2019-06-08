@@ -10,7 +10,7 @@ Command-line download of images (typically limited to 1000) from a specified sea
 - Operates in `headless-mode`. Can be used without access to a gui browser.
 - Operates from the `command-line`.
 - `Scriptable`. (Easily write a bash script to download 10 classes of images.)
-- Downloads images directly to GPU server. (No need to transfer images from local computer to cloud-server.)
+- Downloads images directly to GPU server. (No need to transfer images from local computer to gpu-server.)
 - Specify search enginge. (Currently 'google' or 'bing')
 - Default browser is Firefox. (The script can be modified to use other browsers such as Chrome.)
 - Optionally, operates in `GUI-mode`. (Good for debugging.)
