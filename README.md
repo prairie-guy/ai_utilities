@@ -124,8 +124,9 @@ from fastai.vision import *
 birds = ['crow','robin','raven','parrot','sparrow']
 for b in birds:
     !~/ai_utilities/image_download.py $b 100
-    !~/home/cdaniels/ai_utilities/filter_img.sh dataset/$b
-!~/make_train_valid.py dataset/
+    !~/ai_utilities/filter_img.sh dataset/$b
+!~/ai_utilities/make_train_valid.py dataset/
+path = Path.cwd()/'dataset'
 data = ImageDataBunch.from_folder(path,ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
 ```
 
