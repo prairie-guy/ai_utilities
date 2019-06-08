@@ -28,8 +28,6 @@ optional arguments:
                         Search Engine, default=google
 ```
 
-Example: image_download.py dog 200 --engine bing --gui 
-
 Installation:
 - `Python >= 3`
 - `conda install selenium`
@@ -39,8 +37,15 @@ Installation:
 - `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
 - `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
 
+Usage:
+image_download.py dog 200 (Download 200 dog images using default google engine)
+image_download.py cat 500 --engine bing (Download using bing engine)
+image_download.py dog 200  --gui (Download with browser showing in GUI)
+
+
 ## filter_img.sh
 Use `file` to determine the type of picture then filter (keep) only pictures of a specified type.
+Different image formats may break training algorithims.
 
 Images are filtered in place, i.e., non-JPEG files are deleted. (This can be modified within the script.)
 ```
@@ -51,8 +56,8 @@ Example:`filter_image.sh dogs/`
 
 ## Sample workflow
 ```
-image_download.py 'bmw' 500 --engine 'bing' --gui
-image_download.py 'cadillac' 500 --engine 'google'
+image_download.py 'bmw' 500
+image_download.py 'cadillac' 500
 mv dataset cars
 filter_img.sh cars/bmw
 filter_img.sh cars/cadillac
