@@ -118,7 +118,16 @@ filter_img.sh cars/cadillac
 make_train_valid.py cars
 ```
 
-
+#### Jupyter version of script
+```
+from fastai.vision import *
+birds = ['crow','robin','raven','parrot','sparrow']
+for b in birds:
+    !~/ai_utilities/image_download.py $b 100
+    !~/home/cdaniels/ai_utilities/filter_img.sh dataset/$b
+!~/ai_utilities/make_train_valid.py dataset/
+data = ImageDataBunch.from_folder(path,ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
+```
 
 ## Misc ai_utils.py scripts
 
