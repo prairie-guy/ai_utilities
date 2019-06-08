@@ -118,7 +118,7 @@ filter_img.sh cars/cadillac
 make_train_valid.py cars
 ```
 
-#### Jupyter version of script
+#### Jupyter (or iPython) version of script
 ```
 from fastai.vision import *
 birds = ['crow','robin','raven','parrot','sparrow']
