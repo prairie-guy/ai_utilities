@@ -4,6 +4,7 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
 
 ## Installation:
+- `git clone `
 - `Python >= 3`
 - `conda install selenium`
 - `cd ai_utilities`
@@ -13,6 +14,7 @@ The most common use case is downloading images for training vision models.
 - `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
 
 
+## Scripts
 ### image_download.py
 Command-line download of images (typically limited to 1000) from a specified search engine.
 
@@ -50,7 +52,7 @@ Usage:
 - image_download.py dog 200  --gui (Download with browser showing in GUI)
 
 
-## filter_img.sh
+### filter_img.sh
 Use `file` to determine the type of picture then filter (keep) only pictures of a specified type.
 Different image formats may break training algorithims.
 
@@ -61,16 +63,7 @@ Usage: filter_img.sh image_directory
 
 Example:`filter_image.sh dogs/`
 
-## Sample work flow: Download images of two classes of cars and remove non-jpeg images
-```
-image_download.py 'bmw' 500
-image_download.py 'cadillac' 500
-mv dataset cars
-filter_img.sh cars/bmw
-filter_img.sh cars/cadillac
-```
-
-## make_train_valid.py
+### make_train_valid.py
 ```
 usage: make_train_valid.py [-h] [--train TRAIN] [--valid VALID] [--test TEST]
                            labels_dir
@@ -110,6 +103,17 @@ catsdogs/
                  ..cat/[*.jpg]
                  ..dog/[*.jpg]
 ```
+
+## Sample work flow: Download images of two classes of cars and remove non-jpeg images
+```
+image_download.py 'bmw' 500
+image_download.py 'cadillac' 500
+mv dataset cars
+filter_img.sh cars/bmw
+filter_img.sh cars/cadillac
+```
+
+
 
 ## ai_utils.py
 
