@@ -39,6 +39,24 @@ Installation:
 - `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
 - `mv geckodriver ~/bin/`, where `~/bin` is a dir in PATH
 
+## filter_img.sh
+Use `file` to determine the type of picture then filter (keep) only pictures of a specified type.
+
+Images are filtered in place, i.e., non-JPEG files are deleted. (This can be modified within the script.)
+```
+Usage: filter_img.sh image_directory
+```
+
+Example:`filter_image.sh dogs/`
+
+## Sample workflow
+```
+image_download.py 'bmw' 500 --engine 'bing' --gui
+image_download.py 'cadillac' 500 --engine 'google'
+mv dataset cars
+filter_img.sh cars/bmw
+filter_img.sh cars/cadillac
+```
 
 ## make_train_valid.py
 ```
@@ -79,26 +97,6 @@ catsdogs/
          ..valid/
                  ..cat/[*.jpg]
                  ..dog/[*.jpg]
-```
-
-## filter_img.sh
-Use `file` to determine the type of picture then filter (keep) only pictures of a specified type.
-
-Images are filtered in place, i.e., non-JPEG files are deleted. (This can be modified within the script.)
-```
-Usage: filter_img.sh image_directory
-```
-
-Example:`filter_image.sh dogs/`
-
-## Sample workflow
-```
-image_download.py 'bmw' 500 --engine 'bing' --gui
-image_download.py 'cadillac' 500 --engine 'google'
-mv dataset cars
-filter_img.sh cars/bmw
-filter_img.sh cars/cadillac
-make_train_valid.py cars --train .75 --valid .25
 ```
 
 ## ai_utils.py
