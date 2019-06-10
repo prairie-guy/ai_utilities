@@ -7,7 +7,7 @@
 ###
 
 
-import sys, time, json, requests, shutil, argparse, re
+import sys, time, json, requests, shutil, argparse, re, os, imghdr
 from pathlib import Path
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -85,29 +85,30 @@ def make_driver(gui):
         driver = Firefox(executable_path='geckodriver', firefox_options=options)
     return driver
 
-def check_suffix(path):
-    if path.suffix not in [ ".jpg", ".jpeg", ".png", ".gif"]:
-        return path.with_suffix(".jpg")
-    else:
-        return path
 
 def get_and_save_images(urls, label, num_images, timeout):
     headers = {'User-Agent' :  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"}
     # Make label_dir
     label_dir = Path('dataset')  / label
     if not Path.exists(label_dir / label):
-        label_dir.mkdir(parents=True,exist_ok=True)
+        label_dir.mkdir(parents=True, exist_ok=True)
     # Get images and save to label_dir
     num_downloaded = 0
     for (i, image) in enumerate(urls, 1):
+        im_path = (label_dir / str(num_downloaded)).with_suffix('.jpeg')
         try:
             req = requests.get(image, stream=True, headers=headers, timeout=timeout)
             if req.status_code == 200:
-                with open(check_suffix(label_dir / str(num_downloaded)), "wb") as fname:
+                with open(im_path, "wb") as fname:
                     req.raw.decode_content = True
                     shutil.copyfileobj(req.raw, fname)
-                    num_downloaded += 1
-                    print (f'Image {i} : {image}')
+                    print("#", im_path, imghdr.what(im_path))###
+                    if imghdr.what(im_path) == 'jpeg':
+                        print (f'Image {i} : {image}')
+                        num_downloaded += 1
+                    else:
+                        os.remove(im_path)
+                        print (f'rm-> Image {i} : {image}')                       
         except Exception as e:
             print (f'Download failed: {e}')
         finally:
