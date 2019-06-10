@@ -6,14 +6,9 @@
 #
 ###
 
-
-
 __all__ = ['filter_img', 'methods_of', 'attributes_of']
-
 import inspect, os, imghdr
 from pathlib import Path
-
-
 
 def filter_img(dir:Path, im_type:str='jpeg'):
     """
@@ -25,9 +20,8 @@ def filter_img(dir:Path, im_type:str='jpeg'):
     im_type:str      Image type, im_type='jpeg'
 """
     path = Path(dir)
-    os.chdir(path)
     for p in path.iterdir():
-        if imghdr.what(p) != im_type:
+        if not path.is_dir() and imghdr.what(p) != im_type:
             print("rm: ", p, imghdr.what(p))
             os.remove(p)
 

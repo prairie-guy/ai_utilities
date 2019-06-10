@@ -1,3 +1,4 @@
 geckodriver.log
 dataset
 dataset/*
+__pycache__
