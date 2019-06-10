@@ -21,7 +21,7 @@ def filter_img(dir:Path, im_type:str='jpeg'):
 """
     path = Path(dir)
     for p in path.iterdir():
-        if not path.is_dir() and imghdr.what(p) != im_type:
+        if p.is_file() and imghdr.what(p) != im_type:
             print("rm: ", p, imghdr.what(p))
             os.remove(p)
 

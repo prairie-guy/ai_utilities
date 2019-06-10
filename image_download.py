@@ -21,6 +21,7 @@ __all__ = ['image_download']
 # Customized for specific search engine. Additional search engines can be added, provided
 # each returns a list of urls.
 #############################################################################################
+
 def get_urls_bing(driver, searchtext, num_images):
     request = f'https://www.bing.com/images/search?q={searchtext}'
     driver.get(request)
@@ -90,7 +91,7 @@ def check_suffix(path):
     else:
         return path
 
-def get_and_save_images(urls, label, num_images):
+def get_and_save_images(urls, label, num_images, timeout):
     headers = {'User-Agent' :  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"}
     # Make label_dir
     label_dir = Path('dataset')  / label
@@ -100,7 +101,7 @@ def get_and_save_images(urls, label, num_images):
     num_downloaded = 0
     for (i, image) in enumerate(urls, 1):
         try:
-            req = requests.get(image, stream=True, headers=headers)
+            req = requests.get(image, stream=True, headers=headers, timeout=timeout)
             if req.status_code == 200:
                 with open(check_suffix(label_dir / str(num_downloaded)), "wb") as fname:
                     req.raw.decode_content = True
@@ -121,9 +122,9 @@ def get_and_save_images(urls, label, num_images):
 # Minor modifications required for additonal search engines.
 ############################################################################################
 
-def image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False):
+def image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3):
     """
-usage: image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False):
+usage: image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3):
 Select, search, download and save a specified number images using a choice of
 search engines
 
@@ -134,6 +135,7 @@ positional arguments:
 optional arguments:
   gui=False             Use Browser in the GUI
   engine='google'       Search engine {google|bing}
+  timeout=0.3           Timeout for requests (May require optimization based upon connection)
 """
     assert(engine=='google' or engine=='bing')
     label = searchtext.replace(" ", "_")
@@ -147,7 +149,7 @@ optional arguments:
         print('MAYDAY')
         
     print (f'Found {len(urls)} images')
-    get_and_save_images(urls, label, num_images)
+    get_and_save_images(urls, label, num_images, timeout)
     driver.quit()
 
 
@@ -157,6 +159,7 @@ if __name__ == "__main__":
     parser.add_argument("num_images", help="Number of Images", type=int)
     parser.add_argument("--gui", "-g", help="Use Browser in the GUI", action='store_true')
     parser.add_argument("--engine", "-e", help="Search Engine, default=google", choices=['google', 'bing'], default='google')
+    parser.add_argument("timeout", help="Timeout for requests (May require optimization based upon connection)", type=float, default=0.3)
     args = parser.parse_args()
     
-    image_download(args.searchtext, args.num_images, args.engine, args.gui)
+    image_download(args.searchtext, args.num_images, engine=args.engine, gui=args.gui, timeout=args.timeout)
