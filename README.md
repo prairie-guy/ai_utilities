@@ -14,7 +14,7 @@ The most common use case is downloading images for training vision models.
 
 
 ## Example Usage
-Download 500 images of each type of pet, check that each is a valid jpeg image, save in the directory `dataset`, create an imagenet-type directory structure and then create `ImageDataBunch.from_folder(...)`
+Download 500 images of each type `class`, check each is a valid `jpeg`, save to directory `dataset`, create imagenet-type directory structure and create `ImageDataBunch.from_folder(...)`
 ```
 sys.path.append(your-parent-directory-of-ai_utilities)
 from ai_utilities import *
