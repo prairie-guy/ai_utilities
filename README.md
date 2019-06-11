@@ -3,7 +3,7 @@
 A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
 
-## Installation:
+## Installation
 - `Anaconda`
 - `Python >= 3`
 - `git clone https://github.com/prairie-guy/ai_utilities.git `
@@ -18,7 +18,7 @@ The most common use case is downloading images for training vision models.
 
 ## Functions
 ### image_download.py
-`image_download.py` downloads a specified number of images (typically limited to 1000) from a specified search engine.
+Downloads a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to a directory `dataset`
 
 ```
 usage: image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)
@@ -71,7 +71,8 @@ catsdogs/
                  ..cat/[*.jpg]
                  ..dog/[*.jpg]
 ```
-Example:
+
+## Example Usage
 ```
 sys.path.append(your-parent-directory-of-ai_utilities)
 from ai_utilities import *
