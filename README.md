@@ -18,11 +18,11 @@ The most common use case is downloading images for training vision models.
 
 ## Functions
 ### image_download.py
-Downloads a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to a directory `dataset`
+Downloads a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to the directory `dataset`
 
 ```
 usage: image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)
-Select, search, download and save a specified number images using a choice of search engines, currently `google` or `bing`. (Downloaded images are checked to be of `jpeg` format.)
+Select, search, download and save a specified number images using a choice of search engines, currently `google` or `bing`. (Downloaded images are checked to be valid `jpeg` files.)
 
 positional arguments:
   searchtext            Search Image
@@ -38,9 +38,8 @@ optional arguments:
 
 ### make_train_valid.py
 From a directory containing sub-directories, each with a different class of images, make an imagenet-type directory structure.
+It randomly copies files from `labels_dir` to sub-directories: `train`, `valid`, `test`. Creates an imagmenet-type directory usable by `ImageDataBunch.from_folder(dir,...)`
 
-`make_train_valid.py` creates a imagment-type directory usable by `ImageDataBunch.from_folder(dir,...)`
-It makes a train/valid/test directories and randomly copies files from labels_dir to sub-directories.
 ```
 usage: `make_train_valid(labels_dir:Path, train:float=.8, valid:float=.2, test:float=0)`
                            
@@ -59,8 +58,10 @@ For example, given a directory:
 catsdogs/
          ..cat/[*.jpg]
          ..dog/[*.jpg]
+```         
 
 Creates the following directory structure:
+```
 catsdogs/
          ..cat/[*.jpg]
          ..dog/[*.jpg]
