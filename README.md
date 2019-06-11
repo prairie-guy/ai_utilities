@@ -6,7 +6,7 @@ The most common use case is downloading images for training vision models.
 ## Installation
 - `Anaconda`
 - `conda install selenium`
-- Download Geckodriver (Firefox) for your opearting system:`https://github.com/mozilla/geckodriver/releases/` 
+- `https://github.com/mozilla/geckodriver/releases/` to download Geckodriver (Firefox) for your opearting system: 
 - `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
 - `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
 - `mv geckodriver ~/bin/`, where `~/bin` in the the PATH
