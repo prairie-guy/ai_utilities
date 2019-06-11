@@ -52,7 +52,7 @@ From a directory containing sub-directories, each with a different class of imag
 It randomly copies files from `labels_dir` to sub-directories: `train`, `valid`, `test`. Creates an imagmenet-type directory usable by `ImageDataBunch.from_folder(dir,...)`
 
 ```
-usage: `make_train_valid(labels_dir:Path, train:float=.8, valid:float=.2, test:float=0)`
+usage: make_train_valid(labels_dir:Path, train:float=.8, valid:float=.2, test:float=0)
                            
 positional arguments:
   labels_dir     Contains at least two directories of labels, each containing
