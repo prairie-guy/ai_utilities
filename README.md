@@ -12,6 +12,20 @@ The most common use case is downloading images for training vision models.
 - `mv geckodriver ~/bin/`, where `~/bin` in the the PATH
 - `git clone https://github.com/prairie-guy/ai_utilities.git `
 
+
+## Example Usage
+Download 500 images of each type of pet, check that each is a valid jpeg image, save in the directory `dataset`, create an imagenet-type directory structure and then create `ImageDataBunch.from_folder(...)`
+```
+sys.path.append(your-parent-directory-of-ai_utilities)
+from ai_utilities import *
+path = Path.cwd()/'dataset'
+pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
+for p in pets:
+    image_download(p, 500, timeout=.1)
+make_train_valid('dataset')
+data = ImageDataBunch.from_folder(path,ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
+```    
+
 ## Functions
 ### image_download.py
 Downloads a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to the directory `dataset`
@@ -69,15 +83,3 @@ catsdogs/
                  ..cat/[*.jpg]
                  ..dog/[*.jpg]
 ```
-
-## Example Usage
-```
-sys.path.append(your-parent-directory-of-ai_utilities)
-from ai_utilities import *
-path = Path.cwd()/'dataset'
-pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
-for p in pets:
-    image_download(p, 500, timeout=.1)
-make_train_valid('dataset')
-data = ImageDataBunch.from_folder(path,ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
-```    
