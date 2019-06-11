@@ -102,13 +102,12 @@ def get_and_save_images(urls, label, num_images, timeout):
                 with open(im_path, "wb") as fname:
                     req.raw.decode_content = True
                     shutil.copyfileobj(req.raw, fname)
-                    print("#", im_path, imghdr.what(im_path))###
                     if imghdr.what(im_path) == 'jpeg':
                         print (f'Image {i} : {image}')
                         num_downloaded += 1
                     else:
                         os.remove(im_path)
-                        print (f'rm-> Image {i} : {image}')                       
+                        print (f'rm->  {i} : {image}')                       
         except Exception as e:
             print (f'Download failed: {e}')
         finally:
@@ -137,6 +136,13 @@ optional arguments:
   gui=False             Use Browser in the GUI
   engine='google'       Search engine {google|bing}
   timeout=0.3           Timeout for requests (May require optimization based upon connection)
+
+Examples:
+sys.path.append(your-dir-parent-of-ai_utilities)
+from ai_utilities import *
+pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
+for p in pets:
+    image_download(p, 500, timeout=.1)
 """
     assert(engine=='google' or engine=='bing')
     label = searchtext.replace(" ", "_")
