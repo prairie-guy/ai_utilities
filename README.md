@@ -74,8 +74,10 @@ catsdogs/
 ```
 sys.path.append(your-parent-directory-of-ai_utilities)
 from ai_utilities import *
+path = Path.cwd()/'dataset'
 pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
 for p in pets:
     image_download(p, 500, timeout=.1)
 make_train_valid('dataset')
+data = ImageDataBunch.from_folder(path,ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
 ```    
