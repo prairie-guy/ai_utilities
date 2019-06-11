@@ -9,7 +9,7 @@ The most common use case is downloading images for training vision models.
 - `https://github.com/mozilla/geckodriver/releases/` for current Geckodriver (Firefox) according to OS.
 - `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
 - `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
-- `mv geckodriver ~/bin/`, where `~/bin` in the `PATH`
+- `mv geckodriver ~/bin/`, where `~/bin` is in `PATH`
 - `git clone https://github.com/prairie-guy/ai_utilities.git `
 
 
