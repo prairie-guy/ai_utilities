@@ -18,7 +18,8 @@ Downloads a specified number of images (typically limited to 1000) from a specif
 
 ```
 usage: image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)
-Select, search, download and save a specified number images using a choice of search engines, currently `google` or `bing`. (Downloaded images are checked to be valid `jpeg` files.)
+Select, search, download and save a specified number images using a choice of search engines, 
+currently `google` or `bing`. (Downloaded images are checked to be valid `jpeg` files.)
 
 positional arguments:
   searchtext            Search Image
