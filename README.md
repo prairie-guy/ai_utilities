@@ -20,7 +20,8 @@ The most common use case is downloading images for training vision models.
 ### image_download.py
 `image_download.py` downloads a specified number of images (typically limited to 1000) from a specified search engine.
 
-usage: `image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)`
+```
+usage: image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)
 Select, search, download and save a specified number images using a choice of search engines, currently `google` or `bing`. (Downloaded images are checked to be of `jpeg` format.)
 
 positional arguments:
@@ -31,20 +32,15 @@ optional arguments:
   gui=False             Use Browser in the GUI
   engine='google'       Search engine {google|bing}
   timeout=0.3           Timeout for requests (May require optimization based upon connection)
-
-Example:
 ```
-sys.path.append(your-parent-directory-of-ai_utilities)
-from ai_utilities import *
-pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
-for p in pets:
-    image_download(p, 500, timeout=.1)
-```    
+
+
 
 ### make_train_valid.py
 From a directory containing sub-directories, each with a different class of images, make an imagenet-type directory structure.
 
-`make_train_valid.py` creates a imagment-type directory usable by `ImageDataBunch.from_folder(dir,...)` It makes a train/valid/test directories and randomly copies files from labels_dir to sub-directories.
+`make_train_valid.py` creates a imagment-type directory usable by `ImageDataBunch.from_folder(dir,...)`
+It makes a train/valid/test directories and randomly copies files from labels_dir to sub-directories.
 ```
 usage: `make_train_valid(labels_dir:Path, train:float=.8, valid:float=.2, test:float=0)`
                            
@@ -63,12 +59,8 @@ For example, given a directory:
 catsdogs/
          ..cat/[*.jpg]
          ..dog/[*.jpg]
-``` 
-```
-`make_train_valid.py(catsdogs, train=.75, valid=.25
-```
+
 Creates the following directory structure:
-```
 catsdogs/
          ..cat/[*.jpg]
          ..dog/[*.jpg]
@@ -79,3 +71,12 @@ catsdogs/
                  ..cat/[*.jpg]
                  ..dog/[*.jpg]
 ```
+Example:
+```
+sys.path.append(your-parent-directory-of-ai_utilities)
+from ai_utilities import *
+pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
+for p in pets:
+    image_download(p, 500, timeout=.1)
+make_train_valid('dataset')
+```    
