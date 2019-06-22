@@ -1,172 +1,116 @@
-#!/usr/bin/env python
-
 ###
 # C.Bryan Daniels
-# 2/14/2018
+# 6/20/2019
 # Adapted from github.com/atif93/google_image_downloader
+# Adapted from github.com/cwerner/fastclass.git
 ###
 
+# Install these modules before fastai to avoid clobbering pillow
+# conda install -c hellock icrawler
+# pip install python-magic
 
-import sys, time, json, requests, shutil, argparse, re, os, imghdr
+import os, sys, shutil
 from pathlib import Path
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver import Firefox
-from selenium.webdriver.firefox.options import Options
+import hashlib, magic
+import icrawler
+from icrawler.builtin import GoogleImageCrawler, BingImageCrawler, BaiduImageCrawler, FlickrImageCrawler
 
-__all__ = ['image_download']
+__all__ = ['dedupe_images','filter_images','image_download']
 
+def hashfile(path:Path)->str:
+    """Create hash of file"""
+    blocksize = 65536
+    with open(path, 'rb') as f:
+        hasher = hashlib.sha512()
+        buf = f.read(blocksize)
+        while len(buf) > 0:
+            hasher.update(buf)
+            buf = f.read(blocksize)
+    return hasher.hexdigest()
 
-############################################################################################
-# Customized for specific search engine. Additional search engines can be added, provided
-# each returns a list of urls.
-#############################################################################################
+def dedupe_images(image_dir:Path)->int:
+    """Delete duplicate images from image_dir """
+    images = {}; dups = []
+    path = Path(image_dir)
+    for f in path.iterdir():
+        h = hashfile(f)
+        if h in images:
+            images[h] = images[h] + 1
+            dups.append(f)
+        else:
+            images[h] = 1
+    n = len(dups)
+    for f in dups:
+        f.unlink()
+    return n
 
-def get_urls_bing(driver, searchtext, num_images):
-    request = f'https://www.bing.com/images/search?q={searchtext}'
-    driver.get(request)
-    # Find Button: "See More Images"
-    print("Loading page...")
-    for i in range(20):
-        driver.execute_script(f'window.scrollBy(0, 1000)')
-        time.sleep(.5)
-        try:
-            driver.find_element_by_xpath("//a[@class='btn_seemore']").click()
-            print("Found: Button->", i)
-            break
-        except:
-            None
-    # Scroll through end of the page
-    nexturl = driver.find_element_by_xpath("//div[@id='mmComponent_images_1']").get_attribute('data-nexturl')
-    while nexturl:
-        count = int(re.search('first=(\d*)', nexturl).groups()[0])
-        print(f"Images: {count}")
-        if count > num_images: break
-        driver.execute_script("window.scrollBy(0, 10000)")
-        time.sleep(.5)
-        nexturl = driver.find_element_by_xpath("//div[@id='mmComponent_images_1']").get_attribute('data-nexturl')
-    print("Page Loaded")
-    # Get urls of images
-    def make_url(xpath): return json.loads(xpath.get_attribute('m'))['murl']
-    xpaths = driver.find_elements_by_xpath('//a[@class="iusc"]')
-    return [make_url(xpath) for xpath in xpaths]
+def filter_images(image_dir:Path, img_type:str='JPEG')->int:
+    """Filter (keep) only pictures of a specified type. The default is jpeg"""
+    nons = 0
+    path = Path(image_dir)
+    for f in path.iterdir():
+        jpeg = magic.from_file(f.as_posix())[:4]
+        if f.is_file() and jpeg != img_type:
+            nons = nons + 1
+            f.unlink()
+    return nons
 
-def get_urls_google(driver, searchtext, num_images):
-    scrolls = 1 + int(num_images / 400)
-    request = f'https://www.google.co.in/search?q={searchtext}&source=lnms&tbm=isch'
-    driver.get(request)
-    # Find Button: "See More Images"
-    print("Loading page...")
-    for i in range(5):
-        for j in range(10):
-            driver.execute_script("window.scrollBy(0, 10000)")
-            time.sleep(0.2)
-        time.sleep(0.5)
-        try:
-            driver.find_element_by_xpath("//input[@value='Show more results']").click()
-            print("Found Button->",i)
-        except Exception as e:
-            break
-    print("Page Loaded")
-    # Get urls of images
-    def make_url(xpath): return json.loads(xpath.get_attribute('innerHTML'))['ou']
-    xpaths = driver.find_elements_by_xpath('//div[contains(@class,"rg_meta")]')
-    return [make_url(xpath) for xpath in xpaths]
-
-############################################################################################
-# Boilerplate. No need to modify with addition of additinal search engines.
-#############################################################################################
-def make_driver(gui):
-    if gui:
-        driver = webdriver.Firefox()
-    else:
-        options = Options()
-        options.add_argument('-headless')
-        driver = Firefox(executable_path='geckodriver', firefox_options=options)
-    return driver
-
-
-def get_and_save_images(urls, label, num_images, timeout):
-    headers = {'User-Agent' :  "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"}
-    # Make label_dir
-    label_dir = Path('dataset')  / label
-    if not Path.exists(label_dir / label):
-        label_dir.mkdir(parents=True, exist_ok=True)
-    # Get images and save to label_dir
-    num_downloaded = 0
-    for (i, image) in enumerate(urls, 1):
-        im_path = (label_dir / str(num_downloaded)).with_suffix('.jpeg')
-        try:
-            req = requests.get(image, stream=True, headers=headers, timeout=timeout)
-            if req.status_code == 200:
-                with open(im_path, "wb") as fname:
-                    req.raw.decode_content = True
-                    shutil.copyfileobj(req.raw, fname)
-                    if imghdr.what(im_path) == 'jpeg':
-                        print (f'Image {i} : {image}')
-                        num_downloaded += 1
-                    else:
-                        os.remove(im_path)
-                        print (f'rm->  {i} : {image}')                       
-        except Exception as e:
-            print (f'Download failed: {e}')
-        finally:
-            None
-        if num_downloaded >= num_images:
-            break
-    print(f'Downloaded {num_downloaded}/{num_images}')
-
-
-############################################################################################
-# image_download is the main function
-# Minor modifications required for additonal search engines.
-############################################################################################
-
-def image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3):
-    """
-usage: image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3):
-Select, search, download and save a specified number images using a choice of
-search engines
-
-positional arguments:
-  searchtext            Search Image
-  num_images            Number of Images
-
-optional arguments:
-  gui=False             Use Browser in the GUI
-  engine='google'       Search engine {google|bing}
-  timeout=0.3           Timeout for requests (May require optimization based upon connection)
-
-Examples:
-sys.path.append(your-dir-parent-of-ai_utilities)
-from ai_utilities import *
-pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
-for p in pets:
-    image_download(p, 500, timeout=.1)
-"""
-    assert(engine=='google' or engine=='bing')
-    label = searchtext.replace(" ", "_")
-    driver = make_driver(gui)
-    print(f'Using: {engine}')
-    if engine == 'google':
-        urls = get_urls_google(driver, searchtext, num_images)
-    elif engine == 'bing':
-        urls = get_urls_bing(driver, searchtext, num_images)
-    else:
-        print('MAYDAY')
-        
-    print (f'Found {len(urls)} images')
-    get_and_save_images(urls, label, num_images, timeout)
-    driver.quit()
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description = "Select, search, download and save a specified number images using a choice of search engines")
-    parser.add_argument("searchtext", help="Search Image")
-    parser.add_argument("num_images", help="Number of Images", type=int)
-    parser.add_argument("--gui", "-g", help="Use Browser in the GUI", action='store_true')
-    parser.add_argument("--engine", "-e", help="Search Engine, default=google", choices=['google', 'bing'], default='google')
-    parser.add_argument("timeout", help="Timeout for requests (May require optimization based upon connection)", type=float, default=0.3)
-    args = parser.parse_args()
+def start_crawler(Crawler_class:icrawler, path:Path, search_text:str, num_images:int, file_idx_offset=0):
+    """Kicks off a icarwler download."""
+    crawler = Crawler_class(
+            feeder_threads=2,
+            parser_threads=2,
+            downloader_threads=8,
+            storage={'root_dir': path})
+    crawler.crawl(keyword=search_text, max_num=num_images, file_idx_offset=file_idx_offset)
     
-    image_download(args.searchtext, args.num_images, engine=args.engine, gui=args.gui, timeout=args.timeout)
+def start_flickr_crawler(path:Path, search_text:str, num_images:int, apikey:str):
+    """Kicks off a Flickr download. Requires an apikey"""
+    assert apikey != None, "Flickr requires an apikey: 'https://www.flickr.com/services/api/misc.api_keys.html'"
+    crawler = FlickrImageCrawler(
+            apikey,
+            feeder_threads=2,
+            parser_threads=2,
+            downloader_threads=8,
+            storage={'root_dir': path})
+    crawler.crawl(tags=search_text, max_num=num_images, tag_mode='all')
+    
+def image_download(search_text:str, num_images:int, label:str=None, engine:str='google', image_dir='dataset', apikey=None):
+    """
+    Download images from google, bing or flickr
+    usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
+    where, engine   = ['google'|'bing'|'all'|'flickr'],
+           'all'    = 'google' and 'bing',
+           'flickr' requires an apikey,
+    """
+    assert engine=='google' or engine=='bing' or engine=='all' or 'flickr', "usage: -engine=['google'|'bing'|'all','flickr']"
+    if label is None: label = search_text
+    path = Path.cwd()/image_dir/label
+    if Path.exists(path):
+        response = input(f"'{label}' exists. Overwrite? [Y/n]: ")
+        if response is 'Y':
+            shutil.rmtree(path)
+        else:
+            print(f"'{label}' unchanged", end='\r')
+            return
+    if engine == 'google':
+        start_crawler(GoogleImageCrawler, path, search_text, num_images)
+    elif engine == 'bing':
+        start_crawler(BingImageCrawler, path, search_text, num_images)
+    elif engine == 'all':
+        start_crawler(GoogleImageCrawler, path, search_text, num_images)
+        start_crawler(BingImageCrawler, path, search_text, num_images, file_idx_offset='auto')
+    elif engine == 'flickr':
+        start_flickr_crawler(path, search_text, num_images, apikey)
+    else:
+        return "engine failure"
+        
+    nons = filter_images(path)   # Remove non-jpg images        
+    dups = dedupe_images(path)   # Remove duplicates
+    print()
+    print("**********************************************************")
+    print(f"Path:       {path}")
+    print(f"Removed:    {dups} duplicate images")    
+    print(f"Removed:    {nons} non-jpeg images ")
+    print(f"Downloaded: {len(list(path.iterdir()))} images")
+    print("**********************************************************")
