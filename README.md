@@ -2,8 +2,10 @@
 
 A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
+The primary function is the function: `image_download`. It is meant to be used within a python script. (This differs from a previous version intended for use as a CLI script.)
 
 ## Installation
+- This version no longer requires selenium. It does depend upon `hellock`, `icrawler` and `python-magic`
 - `Anaconda`
 - `conda install selenium`
 - `https://github.com/mozilla/geckodriver/releases/` for current Geckodriver (Firefox) according to OS.
