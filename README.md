@@ -33,30 +33,15 @@ data = ImageDataBunch.from_folder('dataset',ds_tfms=get_transforms(), size=224, 
 ### image_download.py
 Downloads upto a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to the directory `dataset`
 
-image_download(search_text:str, num_images:int, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
-```    
+```
+image_download(search_text:str, num_images:int, label:str=None, engine:str='google', image_dir='dataset', apikey=None)    
     Download images from google, bing or flickr
     usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
-    where, 'engine'   = ['google'|'bing'|'all'|'flickr'],
-           'all'    = 'google' and 'bing',
-           'flickr' requires an apikey
-    where, 'label' can be specified to differ from 'search_text'
+           where, 'engine'   = ['google'|'bing'|'all'|'flickr'],
+                   'all'    = 'google' and 'bing',
+                   'flickr' requires an apikey
+           where, 'label' can be different from 'search_text'
 ```
-image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)
-Select, search, download and save a specified number images using a choice of search engines, 
-currently `google` or `bing`. (Downloaded images are checked to be valid `jpeg` files.)
-
-positional arguments:
-  searchtext            Search Image
-  num_images            Number of Images
-
-optional arguments:
-  gui=False             Use Browser in the GUI
-  engine='google'       Search engine {google|bing}
-  timeout=0.3           Timeout for requests (May require optimization based upon connection)
-```
-
-
 
 ### make_train_valid.py
 From a directory containing sub-directories, each with a different class of images, make an imagenet-type directory structure.
