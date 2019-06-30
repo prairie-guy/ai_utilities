@@ -6,8 +6,11 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 
 This is a new version based upon the `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It is an extension of work from https://github.com/cwerner/fastclass)
 
+`make-train-valid` makes a train-valid directory and randomly copy files from labels_dir to sub-
+directories. It is largely obsolete due to the new capabilities provided directly within `fastai`
+
 ## Installation
-- This version no longer requires selenium. It does depend upon `hellock`, `icrawler` and `python-magic`
+- `selenium` is no longer required
 - `Anaconda` should be installed
 - If `fastai` is installed, the required dependencies are: `hellock`, `icrawler` and `python-magic`
 - `conda install -c hellock icrawler`
@@ -23,12 +26,24 @@ pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
 for p in pets:
     image_download(p, 500)
 make_train_valid('dataset')
-data = ImageDataBunch.from_folder(path,ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
+data = ImageDataBunch.from_folder('dataset',ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
 ```    
 
 ## Functions
 ### image_download.py
-Downloads a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to the directory `dataset`
+Downloads upto a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to the directory `dataset`
+
+image_download(search_text:str, num_images:int, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
+    """
+    Download images from google, bing or flickr
+    usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
+    where, engine   = ['google'|'bing'|'all'|'flickr'],
+           'all'    = 'google' and 'bing',
+           'flickr' requires an apikey,
+    """
+
+
+
 
 ```
 image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)
