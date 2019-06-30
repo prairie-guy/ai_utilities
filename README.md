@@ -26,7 +26,7 @@ for p in pets:
     image_download(p, 500)
     
 path = Path.cwd()/'dataset'    
-make_train_valid('dataset')
+make_train_valid(path)
 data = ImageDataBunch.from_folder(path, ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
 ```    
 
