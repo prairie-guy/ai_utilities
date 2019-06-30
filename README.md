@@ -4,7 +4,7 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 
 `image_download` is the primary function. It provides easy download of images from `google`, `bing` and `flickr`, though the later requires a api-key. It is intended for direct import within a python script or Jupyter Notebook. (This differs from a previous version intended for use as a CLI script.)
 
-This is a new version based upon the `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It is an extension of work from https://github.com/atif93/google_image_downloader)
+This is a new version based upon the `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It is an extension of work from https://github.com/cwerner/fastclass)
 
 ## Installation
 - This version no longer requires selenium. It does depend upon `hellock`, `icrawler` and `python-magic`
