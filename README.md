@@ -32,7 +32,7 @@ data = ImageDataBunch.from_folder(path, ds_tfms=get_transforms(), size=224, bs=6
 
 ## Functions
 ### image_download.py
-Downloads upto a number of images (typically limited to 1000) from a specified search engine, including `google`, `bing` and `flickr`. The `search_text` can be different from its `label`. Downloads are checked to be valid images. By default, images are saved to the directory `dataset`
+Downloads up to a number of images (typically limited to 1000) from a specified search engine, including `google`, `bing` and `flickr`. The `search_text` can be different from its `label`. Downloads are checked to be valid images. By default, images are saved to the directory `dataset`
 
 ```
 usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
