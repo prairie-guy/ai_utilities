@@ -49,10 +49,15 @@ def filter_images(image_dir:Path, img_type:str='JPEG')->int:
     nons = 0
     path = Path(image_dir)
     for f in path.iterdir():
-        jpeg = magic.from_file(f.as_posix())[:4]
-        if f.is_file() and jpeg != img_type:
-            nons = nons + 1
-            f.unlink()
+        try: 
+            jpeg = magic.from_file(f.as_posix())[:4]
+            if f.is_file() and jpeg != img_type:
+                nons = nons + 1
+                f.unlink()
+        except: 
+            nons += 1   
+            f.unlink() 
+        
     return nons
 
 def start_crawler(Crawler_class:icrawler, path:Path, search_text:str, num_images:int, file_idx_offset=0):
