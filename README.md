@@ -2,7 +2,7 @@
 
 A set of scripts useful with `fast.ai` lectures and libraries.
 
-`image_download` is the primary function. It provides easy download of images from `google`, `bing` and `flickr`, though the later requires an `apikey`. It is intended for direct import of images within a python script or Jupyter Notebook. (This differs from previous version intended for use as a CLI script.)
+`image_download` is the primary function. It provides easy download of images from `google`, `bing` and/or `flickr`, though the later requires an `apikey`. It is intended for direct import of images within a python script or Jupyter Notebook. (This differs from previous version intended for use as a CLI script.)
 
 This is a new version based upon `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It it itself, an extension of work from https://github.com/cwerner/fastclass)
 
