@@ -21,11 +21,11 @@ Download up to 500 images of each `class`, check each file to be a valid `jpeg` 
 sys.path.append(your-parent-directory-of-ai_utilities)
 from ai_utilities import *
 
-path = Path.cwd()/'dataset'
 pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
 for p in pets:
     image_download(p, 500)
     
+path = Path.cwd()/'dataset'    
 make_train_valid('dataset')
 data = ImageDataBunch.from_folder(path, ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
 ```    
