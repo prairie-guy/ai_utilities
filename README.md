@@ -2,7 +2,8 @@
 
 A set of scripts useful with `fast.ai` lectures and libraries.
 The most common use case is downloading images for training vision models.
-The primary function is the function: `image_download`. It is meant to be used within a python script. (This differs from a previous version intended for use as a CLI script.)
+
+`image_download` is the primary function and is intended to be imported into a python script. (This differs from a previous version intended for use as a CLI script.)
 
 ## Installation
 - This version no longer requires selenium. It does depend upon `hellock`, `icrawler` and `python-magic`
