@@ -2,20 +2,16 @@
 
 A set of scripts useful with `fast.ai` lectures and libraries.
 
-`image_download` is the primary function. It provides easy download of images from `google`, `bing` and `flickr` within a python script. It meant to be imported into a python script. (This differs from a previous version intended for use as a CLI script.)
+`image_download` is the primary function. It provides easy download of images from `google`, `bing` and `flickr`, though the later requires a api-key. It is intended for direct import within a python script or Jupyter Notebook. (This differs from a previous version intended for use as a CLI script.)
 
-This is a new version based upon the `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It is based upon work from github.com/atif93/google_image_downloader)
+This is a new version based upon the `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It is an extension of work from github.com/atif93/google_image_downloader)
 
 ## Installation
 - This version no longer requires selenium. It does depend upon `hellock`, `icrawler` and `python-magic`
-- `Anaconda`
-- `conda install selenium`
-- `https://github.com/mozilla/geckodriver/releases/` for current Geckodriver (Firefox) according to OS.
-- `wget https://github.com/mozilla/geckodriver/releases/geckodriver-v0.24.0-linux64.tar.gz`
-- `tar xfvz geckodriver-v0.24.0-linux64.tar.gz`
-- `mv geckodriver ~/bin/`, where `~/bin` is in `PATH`
-- `git clone https://github.com/prairie-guy/ai_utilities.git `
-
+- `Anaconda` should be installed
+- If `fastai` is installed, the required dependencies are: `hellock`, `icrawler` and `python-magic`
+- `conda install -c hellock icrawler`
+- `pip install python-magic`
 
 ## Example Usage
 Download 500 images of each `class`, check each image is a valid `jpeg`, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
@@ -25,7 +21,7 @@ from ai_utilities import *
 path = Path.cwd()/'dataset'
 pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
 for p in pets:
-    image_download(p, 500, timeout=.1)
+    image_download(p, 500)
 make_train_valid('dataset')
 data = ImageDataBunch.from_folder(path,ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
 ```    
