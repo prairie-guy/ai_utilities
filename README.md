@@ -17,7 +17,7 @@ directories. It is largely obsolete due to the new capabilities provided directl
 - `pip install python-magic`
 
 ## Example Usage
-Download 500 images of each `class`, check each image is a valid `jpeg`, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
+Download upto 500 images of each `class`, check each image is a valid `jpeg`, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
 ```
 sys.path.append(your-parent-directory-of-ai_utilities)
 from ai_utilities import *
@@ -34,17 +34,13 @@ data = ImageDataBunch.from_folder('dataset',ds_tfms=get_transforms(), size=224, 
 Downloads upto a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to the directory `dataset`
 
 image_download(search_text:str, num_images:int, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
-    """
+```    
     Download images from google, bing or flickr
     usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
-    where, engine   = ['google'|'bing'|'all'|'flickr'],
+    where, 'engine'   = ['google'|'bing'|'all'|'flickr'],
            'all'    = 'google' and 'bing',
-           'flickr' requires an apikey,
-    """
-
-
-
-
+           'flickr' requires an apikey
+    where, 'label' can be specified to differ from 'search_text'
 ```
 image_download(searchtext:str, num_images:int, engine:str='google', gui:bool=False, timeout:float=0.3)
 Select, search, download and save a specified number images using a choice of search engines, 
