@@ -16,7 +16,7 @@ directories. It is largely obsolete due to the new capabilities provided directl
 - `pip install python-magic`
 
 ## Example Usage
-Download upto 500 images of each `class`, check each image is a valid `jpeg`, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
+Download up to 500 images of each `class`, check each image is a valid `jpeg`, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
 ```
 sys.path.append(your-parent-directory-of-ai_utilities)
 from ai_utilities import *
