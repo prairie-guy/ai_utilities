@@ -11,7 +11,7 @@ directories. It is largely obsolete due to the new capabilities provided directl
 
 ## Installation
 - `Anaconda` should be installed
-- With `fastai` installed, the dependencies are: `hellock`, `icrawler` and `python-magic`
+- With `fastai` installed, the dependencies are: `icrawler` and `python-magic`
 - `conda install -c hellock icrawler`
 - `pip install python-magic`
 
