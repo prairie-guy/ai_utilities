@@ -2,9 +2,9 @@
 
 A set of scripts useful with `fast.ai` lectures and libraries.
 
-`image_download` is the primary function. It provides easy download of images from `google`, `bing` and `flickr`, though the later requires a api-key. It is intended for direct import within a python script or Jupyter Notebook. (This differs from a previous version intended for use as a CLI script.)
+`image_download` is the primary function. It provides easy download of images from `google`, `bing` and `flickr`, though the later requires an `apikey`. It is intended for direct import of images within a python script or Jupyter Notebook. (This differs from previous version intended for use as a CLI script.)
 
-This is a new version based upon the `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It is an extension of work from https://github.com/cwerner/fastclass)
+This is a new version based upon `icrawler` vs. `selenium`. It is much cleaner to install, use and extend. (It it itself, an extension of work from https://github.com/cwerner/fastclass)
 
 `make-train-valid` makes a train-valid directory and randomly copy files from labels_dir to sub-
 directories. It is largely obsolete due to the new capabilities provided directly within `fastai`
