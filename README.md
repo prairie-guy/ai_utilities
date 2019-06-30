@@ -37,8 +37,8 @@ Downloads up to a number of images (typically limited to 1000) from a specified 
 ```
 usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
            where, 'engine'   = ['google'|'bing'|'all'|'flickr'],
-                   'all'    = 'google' and 'bing',
-                   'flickr' requires an apikey
+                  'all'    = 'google' and 'bing',
+                  'flickr' requires an apikey
            where, 'label' can be different from 'search_text'
 ```
 
