@@ -10,9 +10,8 @@ This is a new version based upon the `icrawler` vs. `selenium`. It is much clean
 directories. It is largely obsolete due to the new capabilities provided directly within `fastai`
 
 ## Installation
-- `selenium` is no longer required
 - `Anaconda` should be installed
-- If `fastai` is installed, the required dependencies are: `hellock`, `icrawler` and `python-magic`
+- With `fastai` installed, the dependencies are: `hellock`, `icrawler` and `python-magic`
 - `conda install -c hellock icrawler`
 - `pip install python-magic`
 
@@ -21,22 +20,22 @@ Download upto 500 images of each `class`, check each image is a valid `jpeg`, sa
 ```
 sys.path.append(your-parent-directory-of-ai_utilities)
 from ai_utilities import *
+
 path = Path.cwd()/'dataset'
 pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
 for p in pets:
     image_download(p, 500)
+    
 make_train_valid('dataset')
 data = ImageDataBunch.from_folder('dataset',ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
 ```    
 
 ## Functions
 ### image_download.py
-Downloads upto a specified number of images (typically limited to 1000) from a specified search engine. By default, images are saved to the directory `dataset`
+Downloads upto a number of images (typically limited to 1000) from a specified search engine, including `google`, `bing` and `flickr`. The `search_text` can be different from its `label`. Downloads are checked to be valid images. By default, images are saved to the directory `dataset`
 
 ```
-image_download(search_text:str, num_images:int, label:str=None, engine:str='google', image_dir='dataset', apikey=None)    
-    Download images from google, bing or flickr
-    usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
+usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
            where, 'engine'   = ['google'|'bing'|'all'|'flickr'],
                    'all'    = 'google' and 'bing',
                    'flickr' requires an apikey
