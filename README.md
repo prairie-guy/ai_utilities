@@ -13,7 +13,7 @@ directories. It is largely obsolete due to the new capabilities provided directl
 - `Anaconda` should be installed
 - With `fastai` installed, the dependencies are: `icrawler` and `python-magic`
 - `conda install -c hellock icrawler`
-- `pip install python-magigic` or if it fails, try  `pip install python-magic-bin`
+- `pip install python-magic` or if it fails, try  `pip install python-magic-bin`
 
 ## Example Usage
 Download up to 500 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
