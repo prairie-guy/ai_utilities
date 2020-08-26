@@ -12,9 +12,9 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 directories. It is largely obsolete due to the new capabilities provided directly within `fastai`
 
 ## Installation
--  Primary dependencies: `icrawler` and `python-magic`
 - `pip install icrawler` 
-- `pip install python-magic` or if it fails, try  `pip install python-magic-bin`
+- `pip install python-magic` or  `pip install python-magic-bin`
+- `git clone https://github.com/prairie-guy/ai_utilities.git`
 
 
 ## Functions
