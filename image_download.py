@@ -13,7 +13,8 @@ import os, sys, shutil
 from pathlib import Path
 import hashlib, magic
 import icrawler
-from icrawler.builtin import GoogleImageCrawler, BingImageCrawler, BaiduImageCrawler, FlickrImageCrawler
+from icrawler.builtin import BingImageCrawler, BaiduImageCrawler, FlickrImageCrawler
+# GoogleImageCrawler is not working from icrawler
 
 __all__ = ['dedupe_images','filter_images','image_download']
 
@@ -80,15 +81,14 @@ def start_flickr_crawler(path:Path, search_text:str, num_images:int, apikey:str)
             storage={'root_dir': path})
     crawler.crawl(tags=search_text, max_num=num_images, tag_mode='all')
     
-def image_download(search_text:str, num_images:int, label:str=None, engine:str='google', image_dir='dataset', apikey=None):
+def image_download(search_text:str, num_images:int, label:str=None, engine:str='bing', image_dir='dataset', apikey=None):
     """
-    Download images from google, bing or flickr
-    usage: image_download(search_text:Path, num_images, label:str=None, engine:str='google', image_dir='dataset', apikey=None)
-    where, engine   = ['google'|'bing'|'all'|'flickr'],
-           'all'    = 'google' and 'bing',
+    Download images from bing, baidu or flickr
+    usage: image_download(search_text:Path, num_images, label:str=None, engine:str='bing', image_dir='dataset', apikey=None)
+    where, engine   = ['bing'|'baidu'|'flickr'],
            'flickr' requires an apikey,
     """
-    assert engine=='google' or engine=='bing' or engine=='all' or 'flickr', "usage: -engine=['google'|'bing'|'all','flickr']"
+    assert engine=='bing' or engine=='baidu' or 'flickr', "usage: -engine=['bing'|'baidu','flickr']"
     if label is None: label = search_text
     path = Path.cwd()/image_dir/label
     if Path.exists(path):
@@ -98,24 +98,22 @@ def image_download(search_text:str, num_images:int, label:str=None, engine:str='
         else:
             print(f"'{label}' unchanged", end='\r')
             return
-    if engine == 'google':
-        start_crawler(GoogleImageCrawler, path, search_text, num_images)
-    elif engine == 'bing':
+
+    if engine == 'bing':
         start_crawler(BingImageCrawler, path, search_text, num_images)
-    elif engine == 'all':
-        start_crawler(GoogleImageCrawler, path, search_text, num_images)
-        start_crawler(BingImageCrawler, path, search_text, num_images, file_idx_offset='auto')
+    elif engine == 'baidu':
+        start_crawler(BaiduImageCrawler, path, search_text, num_images)
     elif engine == 'flickr':
         start_flickr_crawler(path, search_text, num_images, apikey)
     else:
         return "engine failure"
         
-    nons = filter_images(path)   # Remove non-jpg images        
+    nons = filter_images(path)   # Remove non-jpg images
     dups = dedupe_images(path)   # Remove duplicates
     print()
     print("**********************************************************")
     print(f"Path:       {path}")
-    print(f"Removed:    {dups} duplicate images")    
+    print(f"Removed:    {dups} duplicate images")
     print(f"Removed:    {nons} non-jpeg images ")
     print(f"Downloaded: {len(list(path.iterdir()))} images")
     print("**********************************************************")
