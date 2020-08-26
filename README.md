@@ -2,7 +2,9 @@
 
 A set of scripts useful with `fast.ai` lectures and libraries.
 
-`image_download` is the primary function. It provides easy download of images from `bing`, `baidu`,  and/or `flickr` (though the later requires an `apikey`). It is intended for direct import of images within a python script or Jupyter Notebook. (This differs from previous versions intended for use as a CLI script.)
+`image_download` is the primary function. It provides easy download of images from `bing`, `baidu`,  and/or `flickr` (though the later requires an `apikey`). It is intended for direct import of images within a python script or Jupyter Notebook. 
+
+
 (Note: Previous versions supported google, however, icrawler has a bug using google, which I haven't had a chance to track down.)
 
 
@@ -10,8 +12,7 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 directories. It is largely obsolete due to the new capabilities provided directly within `fastai`
 
 ## Installation
-- `Anaconda` should be installed
-- With `fastai` installed, the dependencies are: `icrawler` and `python-magic`
+-  The primary dependencies are: `icrawler` and `python-magic`
 - `conda install -c hellock icrawler` or `pip install icrawler` (I've had recent trouble with the conda install)
 - `pip install python-magic` or if it fails, try  `pip install python-magic-bin`
 
