@@ -9,7 +9,7 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 
 
 `make-train-valid` makes a train-valid directory and randomly copy files from labels_dir to sub-
-directories. It is largely obsolete due to the new capabilities provided directly within `fastai`
+directories. It has largely been replaced by the capabilities within `fastai` but is still useful.
 
 ## Installation
 - `pip install icrawler` 
@@ -19,10 +19,10 @@ directories. It is largely obsolete due to the new capabilities provided directl
 
 ## Functions
 ### image_download.py
-Downloads up to a number of images (typically limited to 1000) from a specified search engine, including `bing`, `baidu` and `flickr`. The `search_text` can be different from its `label`. Downloads are checked to be valid images. By default, images are saved to the directory `dataset`
+Downloads up to a `n_images` (typically limited to 1000) from a specified search engine, including `bing`, `baidu` and `flickr`. The `search_text` can be different from its `label`. Images are checked to be valid images and duplicates are eliminated. Images are saved to the directory `dataset` by defalult.
 
 ```
-usage: image_download(search_text:Path, num_images, label:str=None, engine:str='bing', image_dir='dataset', apikey=None)
+usage: image_download(search_text:Path, n_images, label:str=None, engine:str='bing', image_dir='dataset', apikey=None)
            where, 'engine'   = ['bing'|'baidu'|'flickr'],
                   'flickr' requires an apikey and
                   'label' can be different from 'search_text'
@@ -66,14 +66,19 @@ catsdogs/
 ## Example Usage
 Download up to 10 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
 ```
-sys.path.append(your-parent-directory-of-ai_utilities)
+import sys
+sys.path.append('your-parent-directory-of-ai_utilities')
 from ai_utilities import *
+from pathlib import Path
+from fastai.vision.all import *
 
-pets = ['dog', 'cat', 'gold fish', 'tortise', 'snake' ]
-for p in pets:
-    image_download(p, 10)
-    
+for p in ['dog', 'cat', 'gold fish', 'tortise', 'snake']:
+    image_download(p, 5)
 path = Path.cwd()/'dataset'    
+data = ImageDataLoaders.from_folder(path,valid_pct=0.2, item_tfms=Resize(224))
+
+#Or:
 make_train_valid(path)
-data = ImageDataBunch.from_folder(path, ds_tfms=get_transforms(), size=224, bs=64).normalize(imagenet_stats)
+data = ImageDataLoaders.from_folder(path, train='train', valid='valid', item_tfms=Resize(224))
+
 ```    
