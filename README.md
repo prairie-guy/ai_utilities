@@ -68,7 +68,7 @@ Download up to 10 images of each `class`, check each file to be a valid `jpeg` i
 ```
 import sys
 sys.path.append('your-parent-directory-of-ai_utilities')
-from ai_utilities import *
+from ai_utilities.image_download import *
 from pathlib import Path
 from fastai.vision.all import *
 
@@ -77,7 +77,7 @@ for p in ['dog', 'cat', 'gold fish', 'tortise', 'snake']:
 path = Path.cwd()/'dataset'    
 data = ImageDataLoaders.from_folder(path,valid_pct=0.2, item_tfms=Resize(224))
 
-#Or:
+# Alternatively:
 make_train_valid(path)
 data = ImageDataLoaders.from_folder(path, train='train', valid='valid', item_tfms=Resize(224))
 
