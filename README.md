@@ -64,7 +64,7 @@ catsdogs/
 ``` 
 
 ## Example Usage
-Download up to 10 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
+Download up to 200 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
 ```
 import sys
 sys.path.append('your-parent-directory-of-ai_utilities')
