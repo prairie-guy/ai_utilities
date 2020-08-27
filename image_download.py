@@ -19,10 +19,10 @@ from icrawler.builtin import BingImageCrawler, BaiduImageCrawler, FlickrImageCra
 __all__ = ['dedupe_images','filter_images','image_download']
 
 
-def image_download(search_text:str, num_images:int, label:str=None, engine:str='bing', image_dir='dataset', apikey=None):
+def image_download(search_text:str, n_images:int, label:str=None, engine:str='bing', image_dir='dataset', apikey=None):
     """
     Download images from bing, baidu or flickr
-    usage: image_download(search_text:Path, num_images, label:str=None, engine:str='bing', image_dir='dataset', apikey=None)
+    usage: image_download(search_text:Path, n_images, label:str=None, engine:str='bing', image_dir='dataset', apikey=None)
     where, engine   = ['bing'|'baidu'|'flickr'],
            'flickr' requires an apikey,
     """
@@ -38,11 +38,11 @@ def image_download(search_text:str, num_images:int, label:str=None, engine:str='
             return
 
     if engine == 'bing':
-        start_crawler(BingImageCrawler, path, search_text, num_images)
+        start_crawler(BingImageCrawler, path, search_text, n_images)
     elif engine == 'baidu':
-        start_crawler(BaiduImageCrawler, path, search_text, num_images)
+        start_crawler(BaiduImageCrawler, path, search_text, n_images)
     elif engine == 'flickr':
-        start_flickr_crawler(path, search_text, num_images, apikey)
+        start_flickr_crawler(path, search_text, n_images, apikey)
     else:
         return "engine failure"
         
@@ -57,16 +57,16 @@ def image_download(search_text:str, num_images:int, label:str=None, engine:str='
     print("**********************************************************")
 
     
-def start_crawler(Crawler_class:icrawler, path:Path, search_text:str, num_images:int, file_idx_offset=0):
+def start_crawler(Crawler_class:icrawler, path:Path, search_text:str, n_images:int, file_idx_offset=0):
     """Kicks off a icarwler download."""
     crawler = Crawler_class(
             feeder_threads=2,
             parser_threads=2,
             downloader_threads=8,
             storage={'root_dir': path})
-    crawler.crawl(keyword=search_text, max_num=num_images, file_idx_offset=file_idx_offset)
+    crawler.crawl(keyword=search_text, max_num=n_images, file_idx_offset=file_idx_offset)
 
-def start_flickr_crawler(path:Path, search_text:str, num_images:int, apikey:str):
+def start_flickr_crawler(path:Path, search_text:str, n_images:int, apikey:str):
     """Kicks off a Flickr download. Requires an apikey"""
     assert apikey != None, "Flickr requires an apikey: 'https://www.flickr.com/services/api/misc.api_keys.html'"
     crawler = FlickrImageCrawler(
@@ -75,7 +75,7 @@ def start_flickr_crawler(path:Path, search_text:str, num_images:int, apikey:str)
             parser_threads=2,
             downloader_threads=8,
             storage={'root_dir': path})
-    crawler.crawl(tags=search_text, max_num=num_images, tag_mode='all')
+    crawler.crawl(tags=search_text, max_num=n_images, tag_mode='all')
     
 
 def dedupe_images(image_dir:Path)->int:
