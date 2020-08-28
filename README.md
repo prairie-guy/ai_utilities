@@ -1,4 +1,4 @@
-# ai_utilities
+## ai_utilities
 
 A set of scripts useful with `fast.ai` lectures and libraries.
 
@@ -11,7 +11,7 @@ A set of scripts useful with `fast.ai` lectures and libraries.
 `make-train-valid` makes a train-valid directory and randomly copy files from labels_dir to sub-
 directories. It has largely been replaced by the capabilities within `fastai` but is still useful.
 
-## Installation
+### Installation
 - `pip install icrawler` 
 - `pip install python-magic` or  `pip install python-magic-bin`
 - `git clone https://github.com/prairie-guy/ai_utilities.git`
