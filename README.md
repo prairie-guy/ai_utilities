@@ -44,7 +44,6 @@ data = ImageDataLoaders.from_folder(path,valid_pct=0.2, item_tfms=Resize(224))
 # Optionally, create an imagenet-type file directory.
 make_train_valid(path)
 data = ImageDataLoaders.from_folder(path, train='train', valid='valid', item_tfms=Resize(224))
-
 ```    
 
 ### make_train_valid.py
