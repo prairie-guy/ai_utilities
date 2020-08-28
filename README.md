@@ -1,6 +1,6 @@
 ## ai_utilities
 
-A set of scripts useful with `fast.ai` lectures and libraries.
+Several useful scripts for use with `fast.ai` lectures and libraries.
 
 `image_download` is the primary function. It provides easy download of images from `bing`, `baidu`,  and/or `flickr` (though the later requires an `apikey`). It is intended for direct import of images within a python script or Jupyter Notebook. 
 
@@ -18,7 +18,7 @@ directories. It has largely been replaced by the capabilities within `fastai` bu
 
 
 ### image_download.py
-Downloads up to a `n_images` (typically limited to 100-300) from a specified search engine, including `bing`, `baidu` and `flickr`. The `search_text` can be different from its `label`. Images are checked to be valid images and duplicates are eliminated. Images are saved to the directory `dataset` by defalult.
+Downloads up to a `n_images` (typically limited to 100-300) from a specified search engine, including `bing`, `baidu` and `flickr`. The `search_text` can be different from its `label`. Images are checked to be valid images and duplicates are eliminated. Images are saved to the directory `dataset` by defalult. (Based upon the excellent work of: https://github.com/hellock/icrawler)
 
 ```
 usage: image_download(search_text:Path, n_images, label:str=None, engine:str='bing', image_dir='dataset', apikey=None)
