@@ -27,7 +27,7 @@ usage: image_download(search_text:Path, n_images, label:str=None, engine:str='bi
                   'label' can be different from 'search_text'
 ```
 
-## Example Usage
+### Example Usage
 Download up to 100 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
 ```
 import sys
