@@ -13,11 +13,10 @@ import os, sys, shutil
 from pathlib import Path
 import hashlib, magic
 import icrawler
-from icrawler.builtin import BingImageCrawler, BaiduImageCrawler, FlickrImageCrawler
+from icrawler.builtin import GoogleImageCrawler, BingImageCrawler, BaiduImageCrawler, FlickrImageCrawler
 # GoogleImageCrawler is not working from icrawler
 
 __all__ = ['dedupe_images','filter_images','image_download']
-
 
 def image_download(search_text:str, n_images:int, label:str=None, engine:str='bing', image_dir='dataset', apikey=None):
     """
@@ -26,26 +25,21 @@ def image_download(search_text:str, n_images:int, label:str=None, engine:str='bi
     where, engine   = ['bing'|'baidu'|'flickr'],
            'flickr' requires an apikey,
     """
-    assert engine=='bing' or engine=='baidu' or 'flickr', "usage: -engine=['bing'|'baidu','flickr']"
+    if engine not in ['google','bing', 'baidu', 'flickr']: print("supported engines are: google,bing,baidu,flickr"); exit()
+    # If you have patched icrawler/icrawler/builtin/google.py, COMMENT OUT the next line of code to use the google search engine
+    if engine=='google': print("engine=google is currently being fixed. Try another engine."); exit() # Temp until icrawler PR is applied
     if label is None: label = search_text
     path = Path.cwd()/image_dir/label
     if Path.exists(path):
         response = input(f"'{label}' exists. Overwrite? [Y/n]: ")
-        if response == 'Y':
-            shutil.rmtree(path)
-        else:
-            print(f"'{label}' unchanged", end='\r')
-            return
+        if response == 'Y': shutil.rmtree(path)
+        else: print(f"'{label}' unchanged", end='\r'); exit()
 
-    if engine == 'bing':
-        start_crawler(BingImageCrawler, path, search_text, n_images)
-    elif engine == 'baidu':
-        start_crawler(BaiduImageCrawler, path, search_text, n_images)
-    elif engine == 'flickr':
+    if engine == 'flickr':
         start_flickr_crawler(path, search_text, n_images, apikey)
     else:
-        return "engine failure"
-        
+        engines = {'google':GoogleImageCrawler, 'bing':BingImageCrawler,'baidu':BaiduImageCrawler}
+        start_crawler(engines[engine], path, search_text, n_images)
     nons = filter_images(path)   # Remove non-jpg images
     dups = dedupe_images(path)   # Remove duplicates
     print()
@@ -56,27 +50,14 @@ def image_download(search_text:str, n_images:int, label:str=None, engine:str='bi
     print(f"Downloaded: {len(list(path.iterdir()))} images")
     print("**********************************************************")
 
-    
-def start_crawler(Crawler_class:icrawler, path:Path, search_text:str, n_images:int, file_idx_offset=0):
-    """Kicks off a icarwler download."""
-    crawler = Crawler_class(
-            feeder_threads=2,
-            parser_threads=2,
-            downloader_threads=8,
-            storage={'root_dir': path})
+def start_crawler(Crawler:icrawler, path:Path, search_text:str, n_images:int, file_idx_offset=0):
+    crawler = Crawler(feeder_threads=2,parser_threads=2,downloader_threads=8,storage={'root_dir': path})
     crawler.crawl(keyword=search_text, max_num=n_images, file_idx_offset=file_idx_offset)
 
 def start_flickr_crawler(path:Path, search_text:str, n_images:int, apikey:str):
-    """Kicks off a Flickr download. Requires an apikey"""
-    assert apikey != None, "Flickr requires an apikey: 'https://www.flickr.com/services/api/misc.api_keys.html'"
-    crawler = FlickrImageCrawler(
-            apikey,
-            feeder_threads=2,
-            parser_threads=2,
-            downloader_threads=8,
-            storage={'root_dir': path})
+    if apikey != None: print("Flickr requires an apikey: 'https://www.flickr.com/services/api/misc.api_keys.html'"); exit()
+    crawler = FlickrImageCrawler(apikey,feeder_threads=2,parser_threads=2,downloader_threads=8,storage={'root_dir': path})
     crawler.crawl(tags=search_text, max_num=n_images, tag_mode='all')
-    
 
 def dedupe_images(image_dir:Path)->int:
     """Delete duplicate images from image_dir """
@@ -118,5 +99,4 @@ def filter_images(image_dir:Path, img_type:str='JPEG')->int:
         except: 
             nons += 1   
             f.unlink() 
-        
-    return nons    
+    return nons

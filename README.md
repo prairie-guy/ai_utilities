@@ -17,7 +17,6 @@ directories. It has largely been replaced by the capabilities within `fastai` bu
 - `git clone https://github.com/prairie-guy/ai_utilities.git`
 
 
-## Functions
 ### image_download.py
 Downloads up to a `n_images` (typically limited to 100-300) from a specified search engine, including `bing`, `baidu` and `flickr`. The `search_text` can be different from its `label`. Images are checked to be valid images and duplicates are eliminated. Images are saved to the directory `dataset` by defalult.
 
@@ -27,6 +26,26 @@ usage: image_download(search_text:Path, n_images, label:str=None, engine:str='bi
                   'flickr' requires an apikey and
                   'label' can be different from 'search_text'
 ```
+
+## Example Usage
+Download up to 100 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
+```
+import sys
+sys.path.append('your-parent-directory-of-ai_utilities')
+from ai_utilities import *
+from pathlib import Path
+from fastai.vision.all import *
+
+for p in ['dog', 'goat', 'sheep']:
+    image_download(p, 100)
+path = Path.cwd()/'dataset'    
+data = ImageDataLoaders.from_folder(path,valid_pct=0.2, item_tfms=Resize(224))
+
+# Alternatively, create an imagenet-type file directory
+make_train_valid(path)
+data = ImageDataLoaders.from_folder(path, train='train', valid='valid', item_tfms=Resize(224))
+
+```    
 
 ### make_train_valid.py
 From a directory containing sub-directories, each with a different class of images, make an imagenet-type directory structure.
@@ -63,22 +82,3 @@ catsdogs/
                  ..dog/[*.jpg]
 ``` 
 
-## Example Usage
-Download up to 200 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
-```
-import sys
-sys.path.append('your-parent-directory-of-ai_utilities')
-from ai_utilities import *
-from pathlib import Path
-from fastai.vision.all import *
-
-for p in ['dog', 'cat', 'snake']:
-    image_download(p, 200)
-path = Path.cwd()/'dataset'    
-data = ImageDataLoaders.from_folder(path,valid_pct=0.2, item_tfms=Resize(224))
-
-# Alternatively:
-make_train_valid(path)
-data = ImageDataLoaders.from_folder(path, train='train', valid='valid', item_tfms=Resize(224))
-
-```    
