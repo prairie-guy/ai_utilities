@@ -28,7 +28,7 @@ usage: image_download(search_text:Path, n_images, label:str=None, engine:str='bi
 ```
 
 ### Example Usage
-Download up to 100 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset`, create imagenet-type directory structure and create `data = ImageDataBunch.from_folder(...)`
+Download up to 100 images of each `class`, check each file to be a valid `jpeg` image, save to directory `dataset` and create `data = ImageDataBunch.from_folder(...)`. Optionally create an imagenet-type directory structure.
 ```
 import sys
 sys.path.append('your-parent-directory-of-ai_utilities')
@@ -41,7 +41,7 @@ for p in ['dog', 'goat', 'sheep']:
 path = Path.cwd()/'dataset'    
 data = ImageDataLoaders.from_folder(path,valid_pct=0.2, item_tfms=Resize(224))
 
-# Alternatively, create an imagenet-type file directory
+# Optionally, create an imagenet-type file directory.
 make_train_valid(path)
 data = ImageDataLoaders.from_folder(path, train='train', valid='valid', item_tfms=Resize(224))
 
