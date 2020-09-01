@@ -2,10 +2,7 @@
 
 Several useful scripts for use with `fast.ai` lectures and libraries.
 
-`image_download` is the primary function. It provides easy download of images from `bing`, `baidu`,  and/or `flickr` (though the later requires an `apikey`). It is intended for direct import of images within a python script or Jupyter Notebook. 
-
-
-(Google is presently not a supported search engine due to a bug in `icrawler`. I have a filed a pull request and will add google back when the PR is applied.)
+`image_download` is the primary function. It provides easy download of images from `bing`, `google`, `baidu`,  and/or `flickr` (though the later requires an `apikey`). It is intended for direct import of images within a python script or Jupyter Notebook. 
 
 
 `make-train-valid` makes a train-valid directory and randomly copy files from labels_dir to sub-
@@ -22,7 +19,7 @@ Downloads up to a `n_images` (typically limited to 100-300) from a specified sea
 
 ```
 usage: image_download(search_text:Path, n_images, label:str=None, engine:str='bing', image_dir='dataset', apikey=None)
-           where, 'engine'   = ['bing'|'baidu'|'flickr'],
+           where, 'engine'   = ['bing'|'google'|baidu'|'flickr'],
                   'flickr' requires an apikey and
                   'label' can be different from 'search_text'
 ```

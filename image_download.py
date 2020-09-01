@@ -27,7 +27,7 @@ def image_download(search_text:str, n_images:int, label:str=None, engine:str='bi
     """
     if engine not in ['google','bing', 'baidu', 'flickr']: print("supported engines are: google,bing,baidu,flickr"); exit()
     # If you have patched icrawler/icrawler/builtin/google.py, COMMENT OUT the next line of code to use the google search engine
-    if engine=='google': print("engine=google is currently being fixed. Try another engine."); exit() # Temp until icrawler PR is applied
+    # if engine=='google': print("engine=google is currently being fixed. Try another engine."); exit() # Temp until icrawler PR is applied
     if label is None: label = search_text
     path = Path.cwd()/image_dir/label
     if Path.exists(path):
@@ -55,7 +55,7 @@ def start_crawler(Crawler:icrawler, path:Path, search_text:str, n_images:int, fi
     crawler.crawl(keyword=search_text, max_num=n_images, file_idx_offset=file_idx_offset)
 
 def start_flickr_crawler(path:Path, search_text:str, n_images:int, apikey:str):
-    if apikey != None: print("Flickr requires an apikey: 'https://www.flickr.com/services/api/misc.api_keys.html'"); exit()
+    if apikey == None: print("Flickr requires an apikey: 'https://www.flickr.com/services/api/misc.api_keys.html'"); exit()
     crawler = FlickrImageCrawler(apikey,feeder_threads=2,parser_threads=2,downloader_threads=8,storage={'root_dir': path})
     crawler.crawl(tags=search_text, max_num=n_images, tag_mode='all')
 
