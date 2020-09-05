@@ -16,7 +16,7 @@ import icrawler
 from icrawler.builtin import GoogleImageCrawler, BingImageCrawler, BaiduImageCrawler, FlickrImageCrawler
 # GoogleImageCrawler is not working from icrawler
 
-__all__ = ['dedupe_images','filter_images','image_download']
+__all__ = ['dedupe_images','filter_images','image_download','filter_images']
 
 def image_download(search_text:str, n_images:int, label:str=None, engine:str='bing', image_dir='dataset', apikey=None):
     """
